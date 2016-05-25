@@ -2,6 +2,7 @@
 
 var opts = {alias: {pattern: 'p'}};
 var argv = require('yargs-parser')(process.argv.slice(2), opts);
+var assemble = require('assemble-core');
 var runner = require('base-test-runner')(argv);
 var suite = require('..');
 
@@ -9,8 +10,13 @@ var suite = require('..');
  * Run the tests in `base-test-suite`
  */
 
-runner.on('file', function(file) {
-  require(file.path)(require('templates'));
+runner.on('assemble-core', function(file) {
+  require(file.path)(assemble);
 });
 
-runner.addFiles(suite.test.templates);
+runner.on('templates', function(file) {
+  require(file.path)(assemble);
+});
+
+runner.addFiles('templates', suite.test.templates);
+runner.addFiles('assemble-core', suite.test['assemble-core']);
