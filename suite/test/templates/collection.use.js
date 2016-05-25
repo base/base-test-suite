@@ -163,6 +163,7 @@ module.exports = function(App, options, runner) {
     });
 
     it('should pass plugins down to collections', function(cb) {
+      var len = Object.keys(app.views).length;
       var count = 0;
       app.use(function(inst) {
         return function(collection) {
@@ -171,13 +172,15 @@ module.exports = function(App, options, runner) {
       });
 
       app.create('pages');
-      assert.equal(count, 1);
+      assert.equal(count, len + 1);
       cb();
     });
 
     it('should pass plugins down to collections after a collection is created', function(cb) {
+      // add existing collection number to new collection count
+      var len = Object.keys(app.views).length;
       var count = 0;
-      app.create('pages');
+      app.create('foos');
 
       app.use(function(inst) {
         return function(collection) {
@@ -185,15 +188,18 @@ module.exports = function(App, options, runner) {
         };
       });
 
-      assert.equal(count, 1);
+      assert.equal(count, len + 1);
       cb();
     });
 
     it('should pass plugins down to every collections', function(cb) {
+      var len = Object.keys(app.views).length;
+      if (!app.views.pages) len++;
+
       var count = 0;
-      app.create('pages');
-      app.create('posts');
-      app.create('docs');
+      app.create('pages'); // existing
+      app.create('posts'); // new
+      app.create('docs'); // new
 
       app.use(function(inst) {
         return function(collection) {
@@ -201,7 +207,7 @@ module.exports = function(App, options, runner) {
         };
       });
 
-      assert.equal(count, 3);
+      assert.equal(count, len + 2);
       cb();
     });
 
