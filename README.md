@@ -12,23 +12,24 @@ $ npm install base-test-suite --save
 
 ## Usage
 
-This just returns an object of properties and filepaths to various tests. For now, tests are oriented around categorized by [base](https://github.com/node-base/base) application
+This just returns an object of properties, with filepaths grouped around categories of tests (for now the tests are grouped by [application](#about).
 
 ```js
 var argv = require('yargs-parser')(process.argv.slice(2));
 var runner = require('base-test-runner')(argv);
 var suite = require('base-test-suite');
 
-/**
- * Run the tests in `base-test-suite`
- */
-
 runner.on('file', function(file) {
+  // files return a function that expect a constructor 
+  // to be passed as the only argument
   require(file.path)(require('templates'));
 });
 
+// run the `templates` test suite
 runner.addFiles(suite.test.templates);
 ```
+
+To see the properties and paths available, just do `console.log(suite)`.
 
 ## About
 
