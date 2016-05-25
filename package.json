@@ -1,6 +1,6 @@
 {
   "name": "base-test-suite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Test suite for base projects.",
   "homepage": "https://github.com/jonschlinkert/base-test-suite",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
@@ -19,8 +19,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "assemble-fs": "^0.5.0",
     "async-each": "^1.0.0",
     "base-fs": "^0.3.4",
