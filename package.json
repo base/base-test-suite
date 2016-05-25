@@ -1,7 +1,7 @@
 {
   "name": "base-test-suite",
-  "version": "0.1.1",
   "description": "Test suite for base projects.",
+  "version": "0.1.2",
   "homepage": "https://github.com/jonschlinkert/base-test-suite",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/base-test-suite",
@@ -10,7 +10,8 @@
   },
   "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "main": "index.js",
   "engines": {
@@ -64,18 +65,18 @@
     ],
     "related": {
       "list": [
-        "base",
-        "verb",
         "assemble",
-        "generate"
+        "base",
+        "generate",
+        "verb"
       ]
     },
     "reflinks": [
-      "base",
       "assemble",
+      "base",
       "generate",
-      "verb",
-      "templates"
+      "templates",
+      "verb"
     ],
     "lint": {
       "reflinks": true
