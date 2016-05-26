@@ -72,12 +72,12 @@ module.exports = function(App, options, runner) {
       });
     });
 
-    it('should use passed in locals in template.', function(cb) {
+    it('should use front-matter over locals passed on render', function(cb) {
       app.data({name: 'CCC'});
       app.page('a.tmpl', {content: 'a <%= name %> b', data: {name: 'DDD'}});
       app.render('a.tmpl', {name: 'EEE'}, function(err, res) {
         if (err) return cb(err);
-        assert.equal(res.content, 'a EEE b');
+        assert.equal(res.content, 'a DDD b');
         cb();
       });
     });
