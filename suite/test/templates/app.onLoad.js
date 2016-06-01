@@ -15,12 +15,12 @@ module.exports = function(App, options, runner) {
         var collection = app.collection();
 
         app.on('onLoad', function(view) {
-          assert(view.path === 'blog/foo.js');
+          assert.equal(view.path, 'blog/foo.js');
           cb();
         });
 
         app.onLoad('blog/:title', function(view, next) {
-          assert(view.path === 'blog/foo.js');
+          assert.equal(view.path, 'blog/foo.js');
           next();
         });
 
@@ -33,12 +33,12 @@ module.exports = function(App, options, runner) {
         app.create('posts');
 
         app.on('onLoad', function(view) {
-          assert(view.path === 'blog/foo.js');
+          assert.equal(view.path, 'blog/foo.js');
           cb();
         });
 
         app.onLoad('blog/:title', function(view, next) {
-          assert(view.path === 'blog/foo.js');
+          assert.equal(view.path, 'blog/foo.js');
           next();
         });
 

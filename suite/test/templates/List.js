@@ -31,7 +31,7 @@ module.exports = function(App, options, runner) {
 
     describe('static methods', function() {
       it('should expose `extend`', function() {
-        assert(typeof List.extend === 'function');
+        assert.equal(typeof List.extend, 'function');
       });
     });
 
@@ -63,12 +63,12 @@ module.exports = function(App, options, runner) {
 
       methods.forEach(function(method) {
         it('should expose the ' + method + ' method', function() {
-          assert(typeof list[method] === 'function');
+          assert.equal(typeof list[method], 'function');
         });
       });
 
       it('should expose the isList property', function() {
-        assert(typeof list.isList === 'boolean');
+        assert.equal(typeof list.isList, 'boolean');
       });
 
       it('should expose the keys property', function() {
@@ -84,7 +84,7 @@ module.exports = function(App, options, runner) {
       });
 
       it('should expose the options property', function() {
-        assert(typeOf(list.options) === 'object');
+        assert.equal(typeOf(list.options), 'object');
       });
     });
 
@@ -95,12 +95,12 @@ module.exports = function(App, options, runner) {
 
       it('should set a value on the instance', function() {
         list.set('a', 'b');
-        assert(list.a === 'b');
+        assert.equal(list.a, 'b');
       });
 
       it('should get a value from the instance', function() {
         list.set('a', 'b');
-        assert(list.get('a') === 'b');
+        assert.equal(list.get('a'), 'b');
       });
     });
 
@@ -115,7 +115,7 @@ module.exports = function(App, options, runner) {
             inst.foo = 'bar';
           });
 
-        assert(list.foo === 'bar');
+        assert.equal(list.foo, 'bar');
       });
 
       it('should expose `item` when the plugin returns a function', function() {
@@ -130,9 +130,9 @@ module.exports = function(App, options, runner) {
         list.addItem('bbb');
         list.addItem('ccc');
 
-        assert(list.items[0].foo === 'bar');
-        assert(list.items[1].foo === 'bar');
-        assert(list.items[2].foo === 'bar');
+        assert.equal(list.items[0].foo, 'bar');
+        assert.equal(list.items[1].foo, 'bar');
+        assert.equal(list.items[2].foo, 'bar');
       });
     });
 
@@ -145,7 +145,7 @@ module.exports = function(App, options, runner) {
         list.addItem('a', {content: '...'});
         list.addItem('b', {content: '...'});
         list.addItem('c', {content: '...'});
-        assert(list.items.length === 3);
+        assert.equal(list.items.length, 3);
       });
     });
 
@@ -158,24 +158,24 @@ module.exports = function(App, options, runner) {
         list.addItem('a', {content: '...'});
         list.addItem('b', {content: '...'});
         list.addItem('c', {content: '...'});
-        assert(list.items.length === 3);
+        assert.equal(list.items.length, 3);
         var a = list.getItem('a');
         list.deleteItem(a);
-        assert(list.items.length === 2);
+        assert.equal(list.items.length, 2);
         var c = list.getItem('c');
         list.deleteItem(c);
-        assert(list.items[0].key === 'b');
+        assert.equal(list.items[0].key, 'b');
       });
 
       it('should remove an item from `items` by key', function() {
         list.addItem('a', {content: '...'});
         list.addItem('b', {content: '...'});
         list.addItem('c', {content: '...'});
-        assert(list.items.length === 3);
+        assert.equal(list.items.length, 3);
         list.deleteItem('c');
-        assert(list.items.length === 2);
+        assert.equal(list.items.length, 2);
         list.deleteItem('b');
-        assert(list.items[0].key === 'a');
+        assert.equal(list.items[0].key, 'a');
       });
     });
 
@@ -297,11 +297,11 @@ module.exports = function(App, options, runner) {
 
       it('should emit arguments on addItem', function(cb) {
         list.on('addItem', function(args) {
-          assert(args[0] === 'a');
-          assert(args[1] === 'b');
-          assert(args[2] === 'c');
-          assert(args[3] === 'd');
-          assert(args[4] === 'e');
+          assert.equal(args[0], 'a');
+          assert.equal(args[1], 'b');
+          assert.equal(args[2], 'c');
+          assert.equal(args[3], 'd');
+          assert.equal(args[4], 'e');
           cb();
         });
 
@@ -312,8 +312,8 @@ module.exports = function(App, options, runner) {
         list.queue.push(list.item('b', {path: 'b'}));
 
         list.addItem('a', {path: 'a'});
-        assert(list.items[0].key === 'a');
-        assert(list.items[1].key === 'b');
+        assert.equal(list.items[0].key, 'a');
+        assert.equal(list.items[1].key, 'b');
       });
 
       it('should load all items on the queue when addItem is called', function() {
@@ -329,12 +329,12 @@ module.exports = function(App, options, runner) {
         list.addItem('b.html', 'bbb');
         list.addItem('c.html', 'ccc');
 
-        assert(list.items[0].path === 'a.html');
-        assert(list.getItem('a.html').content === 'aaa');
-        assert(list.items[1].path === 'b.html');
-        assert(list.getItem('b.html').content === 'bbb');
-        assert(list.items[2].path === 'c.html');
-        assert(list.getItem('c.html').content === 'ccc');
+        assert.equal(list.items[0].path, 'a.html');
+        assert.equal(list.getItem('a.html').content, 'aaa');
+        assert.equal(list.items[1].path, 'b.html');
+        assert.equal(list.getItem('b.html').content, 'bbb');
+        assert.equal(list.items[2].path, 'c.html');
+        assert.equal(list.getItem('c.html').content, 'ccc');
       });
     });
 
@@ -568,10 +568,10 @@ module.exports = function(App, options, runner) {
           }, 'locals.month');
 
         var keys = Object.keys(context);
-        assert(keys[0] === '2012');
-        assert(keys[1] === '2013');
-        assert(keys[2] === '2014');
-        assert(keys[3] === '2015');
+        assert.equal(keys[0], '2012');
+        assert.equal(keys[1], '2013');
+        assert.equal(keys[2], '2014');
+        assert.equal(keys[3], '2015');
       });
     });
 
@@ -653,8 +653,8 @@ module.exports = function(App, options, runner) {
       it('should get the index of a key when key is not renamed', function() {
         list.addItem('a/b/c/ddd.hbs', {content: 'ddd'});
         list.addItem('a/b/c/eee.hbs', {content: 'eee'});
-        assert(list.getIndex('a/b/c/ddd.hbs') === 0);
-        assert(list.getIndex('a/b/c/eee.hbs') === 1);
+        assert.equal(list.getIndex('a/b/c/ddd.hbs'), 0);
+        assert.equal(list.getIndex('a/b/c/eee.hbs'), 1);
       });
 
       it('should get the index of a key when key is renamed', function() {
@@ -665,10 +665,10 @@ module.exports = function(App, options, runner) {
         });
         list.addItem('a/b/c/ddd.hbs', {content: 'ddd'});
         list.addItem('a/b/c/eee.hbs', {content: 'eee'});
-        assert(list.getIndex('a/b/c/ddd.hbs') === 0);
-        assert(list.getIndex('ddd.hbs') === 0);
-        assert(list.getIndex('a/b/c/eee.hbs') === 1);
-        assert(list.getIndex('eee.hbs') === 1);
+        assert.equal(list.getIndex('a/b/c/ddd.hbs'), 0);
+        assert.equal(list.getIndex('ddd.hbs'), 0);
+        assert.equal(list.getIndex('a/b/c/eee.hbs'), 1);
+        assert.equal(list.getIndex('eee.hbs'), 1);
       });
     });
 
@@ -680,11 +680,11 @@ module.exports = function(App, options, runner) {
       it('should get an item from `items`', function() {
         list.addItem('one', {content: 'aaa'});
         list.addItem('two', {content: 'zzz'});
-        assert(list.items.length === 2);
+        assert.equal(list.items.length, 2);
         assert(isBuffer(list.items[0].contents));
         assert(isBuffer(list.getItem('one').contents));
-        assert(list.getItem('one').contents.toString() === 'aaa');
-        assert(list.getItem('two').contents.toString() === 'zzz');
+        assert.equal(list.getItem('one').contents.toString(), 'aaa');
+        assert.equal(list.getItem('two').contents.toString(), 'zzz');
       });
 
       it('should return `undefined` when the item is not found', function() {
@@ -709,8 +709,8 @@ module.exports = function(App, options, runner) {
             this.set('one', 'two');
           });
 
-        assert(list.one === 'two');
-        assert(list.foo === 'bar');
+        assert.equal(list.one, 'two');
+        assert.equal(list.foo, 'bar');
       });
     });
   });

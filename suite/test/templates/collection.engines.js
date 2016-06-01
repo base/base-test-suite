@@ -25,7 +25,7 @@ module.exports = function(App, options, runner) {
 
     it('should register an engine to the given extension', function() {
       pages.engine('hbs', function() {});
-      assert(typeof pages.engines['.hbs'] === 'object');
+      assert.equal(typeof pages.engines['.hbs'], 'object');
     });
 
     it('should set an engine with the given extension', function() {
@@ -41,15 +41,15 @@ module.exports = function(App, options, runner) {
     it('should get an engine:', function() {
       pages.engine('hbs', function() {});
       var hbs = pages.engine('hbs');
-      assert(typeof hbs === 'object');
+      assert.equal(typeof hbs, 'object');
       assert(hbs.hasOwnProperty('render'));
       assert(hbs.hasOwnProperty('compile'));
     });
 
     it('should register multiple engines to the given extension', function() {
       pages.engine(['hbs', 'md'], function() {});
-      assert(typeof pages.engines['.hbs'] === 'object');
-      assert(typeof pages.engines['.md'] === 'object');
+      assert.equal(typeof pages.engines['.hbs'], 'object');
+      assert.equal(typeof pages.engines['.md'], 'object');
     });
   });
 
@@ -115,7 +115,7 @@ module.exports = function(App, options, runner) {
       pages.addView('a.tmpl', {content: '<%= a %>', locals: {a: 'b'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -128,7 +128,7 @@ module.exports = function(App, options, runner) {
       posts.addView('a', {content: '{{a}}', locals: {a: 'b'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -140,7 +140,7 @@ module.exports = function(App, options, runner) {
       posts.addView('a', {content: '{{a}}', engine: 'hbs', locals: {a: 'b'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -152,7 +152,7 @@ module.exports = function(App, options, runner) {
       posts.addView('a', {content: '{{a}}', data: {a: 'b'}, options: {engine: 'hbs'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -164,7 +164,7 @@ module.exports = function(App, options, runner) {
       posts.addView('a', {content: '{{a}}', locals: {a: 'b'}, data: {engine: 'hbs'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -176,7 +176,7 @@ module.exports = function(App, options, runner) {
       posts.addView('a', {content: '{{a}}', locals: {a: 'b'}})
         .render({engine: 'hbs'}, function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });

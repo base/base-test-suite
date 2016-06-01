@@ -28,7 +28,7 @@ module.exports = function(App, options, runner) {
 
     describe('static methods', function() {
       it('should expose `extend`:', function() {
-        assert(typeof Views.extend === 'function');
+        assert.equal(typeof Views.extend, 'function');
       });
     });
 
@@ -60,12 +60,12 @@ module.exports = function(App, options, runner) {
 
       methods.forEach(function(method) {
         it('should expose ' + method + ' method', function() {
-          assert(typeof collection[method] === 'function');
+          assert.equal(typeof collection[method], 'function');
         });
       });
 
       it('should expose isCollection property', function() {
-        assert(typeof collection.isCollection === 'boolean');
+        assert.equal(typeof collection.isCollection, 'boolean');
       });
 
       it('should expose queue property', function() {
@@ -73,11 +73,11 @@ module.exports = function(App, options, runner) {
       });
 
       it('should expose views property', function() {
-        assert(typeOf(collection.views) === 'object');
+        assert.equal(typeOf(collection.views), 'object');
       });
 
       it('should expose options property', function() {
-        assert(typeOf(collection.options) === 'object');
+        assert.equal(typeOf(collection.options), 'object');
       });
     });
 
@@ -88,12 +88,12 @@ module.exports = function(App, options, runner) {
 
       it('should set a value on the instance:', function() {
         collection.set('a', 'b');
-        assert(collection.a === 'b');
+        assert.equal(collection.a, 'b');
       });
 
       it('should get a value from the instance:', function() {
         collection.set('a', 'b');
-        assert(collection.get('a') === 'b');
+        assert.equal(collection.get('a'), 'b');
       });
     });
 
@@ -104,18 +104,18 @@ module.exports = function(App, options, runner) {
 
       it('should set a key/value pair on options:', function() {
         collection.option('a', 'b');
-        assert(collection.options.a === 'b');
+        assert.equal(collection.options.a, 'b');
       });
 
       it('should set an object on options:', function() {
         collection.option({c: 'd'});
-        assert(collection.options.c === 'd');
+        assert.equal(collection.options.c, 'd');
       });
 
       it('should get an option:', function() {
         collection.option({c: 'd'});
         var c = collection.option('c');
-        assert(c === 'd');
+        assert.equal(c, 'd');
       });
     });
 
@@ -139,7 +139,7 @@ module.exports = function(App, options, runner) {
         assert(collection.views.hasOwnProperty('foo'));
 
         collection.addView('one', {content: '...'});
-        assert(typeof collection.views.one === 'object');
+        assert.equal(typeof collection.views.one, 'object');
         assert(isBuffer(collection.views.one.contents));
       });
 
@@ -155,7 +155,7 @@ module.exports = function(App, options, runner) {
         collection = new Views({View: View});
         collection.addView('one', {content: '...'});
         collection.views.one.foo('bar', 'baz');
-        assert(collection.views.one.bar === 'baz');
+        assert.equal(collection.views.one.bar, 'baz');
       });
 
       it('should allow an instance of `View` to be passed:', function() {
@@ -165,7 +165,7 @@ module.exports = function(App, options, runner) {
         view.set('abc', 'xyz');
         assert(collection.views.one instanceof collection.View);
         assert(isBuffer(collection.views.one.contents));
-        assert(collection.views.one.abc === 'xyz');
+        assert.equal(collection.views.one.abc, 'xyz');
       });
 
       it('should expose the `isType` method on items', function() {
@@ -268,7 +268,7 @@ module.exports = function(App, options, runner) {
         var view = views.getView('one');
         assert(view);
         assert(view.content);
-        assert(view.content === 'foo');
+        assert.equal(view.content, 'foo');
       });
 
       it('should create views from an instance of Views', function() {
@@ -301,9 +301,9 @@ module.exports = function(App, options, runner) {
         var two = collection.view('two', {content: 'bar'});
 
         assert(one.isView);
-        assert(one.path === 'one');
+        assert.equal(one.path, 'one');
         assert(two.isView);
-        assert(two.path === 'two');
+        assert.equal(two.path, 'two');
       });
 
       it('should return a single collection view from an object', function() {
@@ -311,9 +311,9 @@ module.exports = function(App, options, runner) {
         var two = collection.view({path: 'two', content: 'bar'});
 
         assert(one.isView);
-        assert(one.path === 'one');
+        assert.equal(one.path, 'one');
         assert(two.isView);
-        assert(two.path === 'two');
+        assert.equal(two.path, 'two');
       });
     });
 
@@ -416,7 +416,7 @@ module.exports = function(App, options, runner) {
 
         pages.addList(['a.txt', 'b.txt', 'c.txt']);
         assert(pages.views.hasOwnProperty('a.txt'));
-        assert(pages.views['a.txt'].path === 'a.txt');
+        assert.equal(pages.views['a.txt'].path, 'a.txt');
       });
 
       it('should load an array of items from the addList callback:', function() {
@@ -426,7 +426,7 @@ module.exports = function(App, options, runner) {
           return {path: fp};
         });
         assert(collection.views.hasOwnProperty('a.txt'));
-        assert(collection.views['a.txt'].path === 'a.txt');
+        assert.equal(collection.views['a.txt'].path, 'a.txt');
       });
 
       it('should load an object of views from an event:', function() {
@@ -446,7 +446,7 @@ module.exports = function(App, options, runner) {
         });
 
         assert(collection.views.hasOwnProperty('foo/a'));
-        assert(collection.views['foo/a'].path === 'a.txt');
+        assert.equal(collection.views['foo/a'].path, 'a.txt');
       });
 
       it('should signal `loaded` when finished:', function() {
@@ -467,7 +467,7 @@ module.exports = function(App, options, runner) {
 
         assert(collection.views.hasOwnProperty('foo/a'));
         assert(!collection.views.hasOwnProperty('foo/c'));
-        assert(collection.views['foo/a'].path === 'a.txt');
+        assert.equal(collection.views['foo/a'].path, 'a.txt');
       });
     });
 
@@ -480,8 +480,8 @@ module.exports = function(App, options, runner) {
         collection.addView('two', {content: 'zzz'});
         assert(isBuffer(collection.views.one.contents));
         assert(isBuffer(collection.getView('one').contents));
-        assert(collection.getView('one').contents.toString() === 'aaa');
-        assert(collection.getView('two').contents.toString() === 'zzz');
+        assert.equal(collection.getView('one').contents.toString(), 'aaa');
+        assert.equal(collection.getView('two').contents.toString(), 'zzz');
       });
     });
 
@@ -493,7 +493,7 @@ module.exports = function(App, options, runner) {
       it('should get the number of views:', function() {
         collection.addView('one', {content: 'aaa'});
         collection.addView('two', {content: 'zzz'});
-        assert(Object.keys(collection.views).length === 2);
+        assert.equal(Object.keys(collection.views).length, 2);
       });
     });
   });
@@ -510,17 +510,17 @@ module.exports = function(App, options, runner) {
 
       it('should use a custom rename key function on view keys', function() {
         collection.addView('a/b/c/d.hbs', {content: 'foo bar baz'});
-        assert(collection.views['d.hbs'].contents.toString() === 'foo bar baz');
+        assert.equal(collection.views['d.hbs'].contents.toString(), 'foo bar baz');
       });
 
       it('should get a view with the renamed key:', function() {
         collection.addView('a/b/c/d.hbs', {content: 'foo bar baz'});
-        assert(collection.getView('d.hbs').contents.toString() === 'foo bar baz');
+        assert.equal(collection.getView('d.hbs').contents.toString(), 'foo bar baz');
       });
 
       it('should get a view with the original key:', function() {
         collection.addView('a/b/c/d.hbs', {content: 'foo bar baz'});
-        assert(collection.getView('a/b/c/d.hbs').contents.toString() === 'foo bar baz');
+        assert.equal(collection.getView('a/b/c/d.hbs').contents.toString(), 'foo bar baz');
       });
     });
   });
@@ -532,11 +532,11 @@ module.exports = function(App, options, runner) {
 
     it('should emit arguments on addView', function(cb) {
       collection.on('addView', function(args) {
-        assert(args[0] === 'a');
-        assert(args[1] === 'b');
-        assert(args[2] === 'c');
-        assert(args[3] === 'd');
-        assert(args[4] === 'e');
+        assert.equal(args[0], 'a');
+        assert.equal(args[1], 'b');
+        assert.equal(args[2], 'c');
+        assert.equal(args[3], 'd');
+        assert.equal(args[4], 'e');
         cb();
       });
 
@@ -565,11 +565,11 @@ module.exports = function(App, options, runner) {
       collection.addView('c.html', 'ccc');
 
       assert(collection.views.hasOwnProperty('a.html'));
-      assert(collection.getView('a.html').content === 'aaa');
+      assert.equal(collection.getView('a.html').content, 'aaa');
       assert(collection.views.hasOwnProperty('b.html'));
-      assert(collection.getView('b.html').content === 'bbb');
+      assert.equal(collection.getView('b.html').content, 'bbb');
       assert(collection.views.hasOwnProperty('c.html'));
-      assert(collection.getView('c.html').content === 'ccc');
+      assert.equal(collection.getView('c.html').content, 'ccc');
     });
   });
 };

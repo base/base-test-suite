@@ -22,7 +22,7 @@ module.exports = function(App, options, runner) {
 
     describe('static methods', function() {
       it('should expose `extend`:', function() {
-        assert(typeof App.extend === 'function');
+        assert.equal(typeof App.extend, 'function');
       });
     });
 
@@ -32,19 +32,19 @@ module.exports = function(App, options, runner) {
       });
 
       it('should expose `set`', function() {
-        assert(typeof app.set === 'function');
+        assert.equal(typeof app.set, 'function');
       });
       it('should expose `get`', function() {
-        assert(typeof app.get === 'function');
+        assert.equal(typeof app.get, 'function');
       });
       it('should expose `visit`', function() {
-        assert(typeof app.visit === 'function');
+        assert.equal(typeof app.visit, 'function');
       });
       it('should expose `define`', function() {
-        assert(typeof app.define === 'function');
+        assert.equal(typeof app.define, 'function');
       });
       it('should expose `views`', function() {
-        assert(typeof app.views === 'object');
+        assert.equal(typeof app.views, 'object');
       });
     });
 
@@ -55,12 +55,12 @@ module.exports = function(App, options, runner) {
 
       it('should set a value on the instance:', function() {
         app.set('a', 'b');
-        assert(app.a === 'b');
+        assert.equal(app.a, 'b');
       });
 
       it('should get a value from the instance:', function() {
         app.set('a', 'b');
-        assert(app.get('a') === 'b');
+        assert.equal(app.get('a'), 'b');
       });
     });
 
@@ -68,7 +68,7 @@ module.exports = function(App, options, runner) {
       it('should listen for errors:', function(cb) {
         app = new App();
         app.on('error', function(err) {
-          assert(err.message === 'foo');
+          assert.equal(err.message, 'foo');
           cb();
         });
         app.emit('error', new Error('foo'));
@@ -77,7 +77,7 @@ module.exports = function(App, options, runner) {
       it('should expose constructors from `lib`:', function() {
         app = new App();
         app.expose('Collection');
-        assert(typeof app.Collection === 'function');
+        assert.equal(typeof app.Collection, 'function');
       });
 
       it('should update constructors after init:', function() {
@@ -101,20 +101,20 @@ module.exports = function(App, options, runner) {
             foo: function() {}
           }
         });
-        assert(typeof app.foo === 'function');
+        assert.equal(typeof app.foo, 'function');
         delete App.prototype.foo;
       });
 
       it('should expose `_` on app:', function() {
         app = new App();
-        assert(typeof app._ === 'object');
+        assert.equal(typeof app._, 'object');
       });
 
       it('should not re-add `_` in init:', function() {
         app = new App();
         app._.foo = 'bar';
         app.initTemplates();
-        assert(app._.foo === 'bar');
+        assert.equal(app._.foo, 'bar');
       });
     });
   });

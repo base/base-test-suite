@@ -17,17 +17,17 @@ module.exports = function(App, options, runner) {
       });
 
       it('should expose the list method', function() {
-        assert(typeof app.list === 'function');
+        assert.equal(typeof app.list, 'function');
       });
 
       it('should return a new list', function() {
         var list = app.list();
-        assert(typeof list === 'object');
+        assert.equal(typeof list, 'object');
       });
 
       it('should have isList property', function() {
         var list = app.list();
-        assert(list.isList === true);
+        assert.equal(list.isList, true);
       });
     });
 
@@ -49,7 +49,7 @@ module.exports = function(App, options, runner) {
         var list = app.list();
         list.option('a', 'b');
         assert(list.options);
-        assert(list.options.a === 'b');
+        assert.equal(list.options.a, 'b');
       });
     });
 
@@ -99,7 +99,7 @@ module.exports = function(App, options, runner) {
           .set('data.name', 'Brian')
           .render(function(err, res) {
             if (err) return cb(err);
-            assert(res.contents.toString() === 'Brian');
+            assert.equal(res.contents.toString(), 'Brian');
             cb();
           });
       });

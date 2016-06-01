@@ -20,19 +20,19 @@ module.exports = function(App, options, runner) {
       it('should create an instance of Collection', function() {
         var collection = new Collection();
         assert(collection instanceof Collection);
-        assert(typeof collection === 'object');
+        assert.equal(typeof collection, 'object');
       });
 
       it('should instantiate without new', function() {
         var collection = Collection();
         assert(collection instanceof Collection);
-        assert(typeof collection === 'object');
+        assert.equal(typeof collection, 'object');
       });
     });
 
     describe('static methods', function() {
       it('should expose `extend`', function() {
-        assert(typeof Collection.extend === 'function');
+        assert.equal(typeof Collection.extend, 'function');
       });
     });
 
@@ -64,12 +64,12 @@ module.exports = function(App, options, runner) {
 
       methods.forEach(function(method) {
         it('should expose ' + method + ' method', function() {
-          assert(typeof collection[method] === 'function');
+          assert.equal(typeof collection[method], 'function');
         });
       });
 
       it('should expose isCollection property', function() {
-        assert(typeof collection.isCollection === 'boolean');
+        assert.equal(typeof collection.isCollection, 'boolean');
       });
 
       it('should expose queue property', function() {
@@ -77,11 +77,11 @@ module.exports = function(App, options, runner) {
       });
 
       it('should expose items property', function() {
-        assert(typeOf(collection.items) === 'object');
+        assert.equal(typeOf(collection.items), 'object');
       });
 
       it('should expose options property', function() {
-        assert(typeOf(collection.options) === 'object');
+        assert.equal(typeOf(collection.options), 'object');
       });
     });
   });
@@ -113,7 +113,7 @@ module.exports = function(App, options, runner) {
             inst.foo = 'bar';
           });
 
-        assert(collection.foo === 'bar');
+        assert.equal(collection.foo, 'bar');
       });
 
       it('should expose `item` when the plugin returns a function', function() {
@@ -128,21 +128,21 @@ module.exports = function(App, options, runner) {
         collection.addItem('bbb');
         collection.addItem('ccc');
 
-        assert(collection.items.aaa.foo === 'bar');
-        assert(collection.items.bbb.foo === 'bar');
-        assert(collection.items.ccc.foo === 'bar');
+        assert.equal(collection.items.aaa.foo, 'bar');
+        assert.equal(collection.items.bbb.foo, 'bar');
+        assert.equal(collection.items.ccc.foo, 'bar');
       });
     });
 
     describe('get / set', function() {
       it('should set a value on the instance', function() {
         collection.set('a', 'b');
-        assert(collection.a === 'b');
+        assert.equal(collection.a, 'b');
       });
 
       it('should get a value from the instance', function() {
         collection.set('a', 'b');
-        assert(collection.get('a') === 'b');
+        assert.equal(collection.get('a'), 'b');
       });
     });
 
@@ -168,10 +168,10 @@ module.exports = function(App, options, runner) {
 
         assert(one instanceof Item);
         assert(one instanceof collection.Item);
-        assert(one.path === 'one');
+        assert.equal(one.path, 'one');
         assert(two instanceof Item);
         assert(two instanceof collection.Item);
-        assert(two.path === 'two');
+        assert.equal(two.path, 'two');
       });
 
       it('should return a single collection item from an object', function() {
@@ -179,9 +179,9 @@ module.exports = function(App, options, runner) {
         var two = collection.item({path: 'two', content: 'bar'});
 
         assert(one instanceof Item);
-        assert(one.path === 'one');
+        assert.equal(one.path, 'one');
         assert(two instanceof Item);
-        assert(two.path === 'two');
+        assert.equal(two.path, 'two');
       });
     });
 
@@ -205,7 +205,7 @@ module.exports = function(App, options, runner) {
         assert(collection.items.hasOwnProperty('foo'));
 
         collection.addItem('one', {content: '...'});
-        assert(typeof collection.items.one === 'object');
+        assert.equal(typeof collection.items.one, 'object');
         assert(isBuffer(collection.items.one.contents));
       });
 
@@ -221,7 +221,7 @@ module.exports = function(App, options, runner) {
         collection = new Collection({Item: Item});
         collection.addItem('one', {content: '...'});
         collection.items.one.foo('bar', 'baz');
-        assert(collection.items.one.bar === 'baz');
+        assert.equal(collection.items.one.bar, 'baz');
       });
 
       it('should allow an instance of `Item` to be passed', function() {
@@ -231,7 +231,7 @@ module.exports = function(App, options, runner) {
         item.set('abc', 'xyz');
         assert(collection.items.one instanceof collection.Item);
         assert(isBuffer(collection.items.one.contents));
-        assert(collection.items.one.abc === 'xyz');
+        assert.equal(collection.items.one.abc, 'xyz');
       });
     });
 
@@ -373,7 +373,7 @@ module.exports = function(App, options, runner) {
 
         collection.addList(['a.txt', 'b.txt', 'c.txt']);
         assert(collection.items.hasOwnProperty('a.txt'));
-        assert(collection.items['a.txt'].path === 'a.txt');
+        assert.equal(collection.items['a.txt'].path, 'a.txt');
       });
 
       it('should load an array of items from the addList callback:', function() {
@@ -383,7 +383,7 @@ module.exports = function(App, options, runner) {
           return {path: fp};
         });
         assert(collection.items.hasOwnProperty('a.txt'));
-        assert(collection.items['a.txt'].path === 'a.txt');
+        assert.equal(collection.items['a.txt'].path, 'a.txt');
       });
 
       it('should load an object of items from an event', function() {
@@ -403,7 +403,7 @@ module.exports = function(App, options, runner) {
         });
 
         assert(collection.items.hasOwnProperty('foo/a'));
-        assert(collection.items['foo/a'].path === 'a.txt');
+        assert.equal(collection.items['foo/a'].path, 'a.txt');
       });
 
       it('should signal `loaded` when finished (addItems)', function() {
@@ -427,7 +427,7 @@ module.exports = function(App, options, runner) {
 
         assert(collection.items.hasOwnProperty('foo/a'));
         assert(!collection.items.hasOwnProperty('foo/c'));
-        assert(collection.items['foo/a'].path === 'a.txt');
+        assert.equal(collection.items['foo/a'].path, 'a.txt');
       });
 
       it('should signal `loaded` when finished (addList)', function() {
@@ -452,7 +452,7 @@ module.exports = function(App, options, runner) {
         ]);
 
         assert(collection.items.hasOwnProperty('foo/a'));
-        assert(collection.items['foo/a'].path === 'a.txt');
+        assert.equal(collection.items['foo/a'].path, 'a.txt');
         assert(!collection.items.hasOwnProperty('foo/c'));
       });
     });
@@ -466,8 +466,8 @@ module.exports = function(App, options, runner) {
         collection.addItem('two', {content: 'zzz'});
         assert(isBuffer(collection.items.one.contents));
         assert(isBuffer(collection.getItem('one').contents));
-        assert(collection.getItem('one').contents.toString() === 'aaa');
-        assert(collection.getItem('two').contents.toString() === 'zzz');
+        assert.equal(collection.getItem('one').contents.toString(), 'aaa');
+        assert.equal(collection.getItem('two').contents.toString(), 'zzz');
       });
     });
   });
@@ -479,11 +479,11 @@ module.exports = function(App, options, runner) {
 
     it('should emit arguments on addItem', function(cb) {
       collection.on('addItem', function(args) {
-        assert(args[0] === 'a');
-        assert(args[1] === 'b');
-        assert(args[2] === 'c');
-        assert(args[3] === 'd');
-        assert(args[4] === 'e');
+        assert.equal(args[0], 'a');
+        assert.equal(args[1], 'b');
+        assert.equal(args[2], 'c');
+        assert.equal(args[3], 'd');
+        assert.equal(args[4], 'e');
         cb();
       });
 
@@ -512,11 +512,11 @@ module.exports = function(App, options, runner) {
       collection.addItem('c.html', 'ccc');
 
       assert(collection.items.hasOwnProperty('a.html'));
-      assert(collection.getItem('a.html').content === 'aaa');
+      assert.equal(collection.getItem('a.html').content, 'aaa');
       assert(collection.items.hasOwnProperty('b.html'));
-      assert(collection.getItem('b.html').content === 'bbb');
+      assert.equal(collection.getItem('b.html').content, 'bbb');
       assert(collection.items.hasOwnProperty('c.html'));
-      assert(collection.getItem('c.html').content === 'ccc');
+      assert.equal(collection.getItem('c.html').content, 'ccc');
     });
   });
 
@@ -547,18 +547,18 @@ module.exports = function(App, options, runner) {
 
       it('should set a key/value pair on options', function() {
         collection.option('a', 'b');
-        assert(collection.options.a === 'b');
+        assert.equal(collection.options.a, 'b');
       });
 
       it('should set an object on options', function() {
         collection.option({c: 'd'});
-        assert(collection.options.c === 'd');
+        assert.equal(collection.options.c, 'd');
       });
 
       it('should get an option', function() {
         collection.option({c: 'd'});
         var c = collection.option('c');
-        assert(c === 'd');
+        assert.equal(c, 'd');
       });
     });
 
@@ -573,17 +573,17 @@ module.exports = function(App, options, runner) {
 
       it('should use a custom rename key function on item keys', function() {
         collection.addItem('a/b/c/d.hbs', {content: 'foo bar baz'});
-        assert(collection.items['d.hbs'].contents.toString() === 'foo bar baz');
+        assert.equal(collection.items['d.hbs'].contents.toString(), 'foo bar baz');
       });
 
       it('should get a item with the renamed key', function() {
         collection.addItem('a/b/c/d.hbs', {content: 'foo bar baz'});
-        assert(collection.getItem('d.hbs').contents.toString() === 'foo bar baz');
+        assert.equal(collection.getItem('d.hbs').contents.toString(), 'foo bar baz');
       });
 
       it('should get a item with the original key', function() {
         collection.addItem('a/b/c/d.hbs', {content: 'foo bar baz'});
-        assert(collection.getItem('a/b/c/d.hbs').contents.toString() === 'foo bar baz');
+        assert.equal(collection.getItem('a/b/c/d.hbs').contents.toString(), 'foo bar baz');
       });
     });
   });

@@ -28,7 +28,7 @@ module.exports = function(App, options, runner) {
         .set('data.name', 'Brooke')
         .render(function(err, res) {
           if (err) return cb(err);
-          assert(res.content === 'Brooke');
+          assert.equal(res.content, 'Brooke');
           cb();
         });
     });

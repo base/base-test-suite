@@ -40,7 +40,7 @@ module.exports = function(App, options, runner) {
           return str + ' ' + 'bar';
         };
       });
-      assert(view.foo('foo') === 'foo bar');
+      assert.equal(view.foo('foo'), 'foo bar');
     });
 
     it('should be chainable:', function() {
@@ -55,9 +55,9 @@ module.exports = function(App, options, runner) {
           view.c = 'ccc';
         });
 
-      assert(view.a === 'aaa');
-      assert(view.b === 'bbb');
-      assert(view.c === 'ccc');
+      assert.equal(view.a, 'aaa');
+      assert.equal(view.b, 'bbb');
+      assert.equal(view.c, 'ccc');
     });
   });
 

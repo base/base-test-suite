@@ -39,12 +39,12 @@ module.exports = function(App, options, runner) {
     describe('getView', function() {
       it('should find a view', function() {
         var view = app.getView('pages', 'a.tmpl');
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
       });
 
       it('should find a view using the renameKey function', function() {
         var view = app.getView('pages', fixtures('templates/a.tmpl'));
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
       });
 
       it('should return undefined when nothing is found', function() {
@@ -54,14 +54,14 @@ module.exports = function(App, options, runner) {
 
       it('should return undefined when name is a directory', function() {
         var view = app.getView('pages', fixtures('templates'));
-        assert(typeof view === 'undefined');
+        assert.equal(typeof view, 'undefined');
       });
 
       it('should find a view using a glob pattern', function() {
         var view = app.getView('pages', 'a', function(key) {
           return key + '.tmpl';
         });
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
       });
     });
 
@@ -105,7 +105,7 @@ module.exports = function(App, options, runner) {
 
       it('should find a view by collection name:', function() {
         var view = app.find('a.tmpl', 'pages');
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
       });
 
       it('should find a view by collection name:', function() {
@@ -116,12 +116,12 @@ module.exports = function(App, options, runner) {
         app.create('pages');
         app.page('a/b/c.md', {content: '...'});
         var view = app.find('a/b/c.md');
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
       });
 
       it('should find a view without a collection name:', function() {
         var view = app.find('a.tmpl');
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
       });
     });
   });

@@ -54,7 +54,8 @@
   },
   "devDependencies": {
     "assemble-core": "^0.19.0",
-    "base-test-converter": "^0.1.2"
+    "base-test-converter": "^0.1.2",
+    "gulp": "^3.9.1"
   },
   "keywords": [
     "base",

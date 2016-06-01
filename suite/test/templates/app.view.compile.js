@@ -17,21 +17,21 @@ module.exports = function(App, options, runner) {
         var buffer = new Buffer('a b c');
         var view = app.page('a.tmpl', {contents: buffer})
           .compile();
-        assert(typeof view.fn === 'function');
+        assert.equal(typeof view.fn, 'function');
       });
 
       it('should compile a view with settings:', function() {
         var buffer = new Buffer('a b c');
         var view = app.page('a.tmpl', {contents: buffer})
           .compile({foo: 'bar'});
-        assert(typeof view.fn === 'function');
+        assert.equal(typeof view.fn, 'function');
       });
 
       it('should compile a view with isAsync flag:', function() {
         var buffer = new Buffer('a b c');
         var view = app.page('a.tmpl', {contents: buffer})
           .compile(true);
-        assert(typeof view.fn === 'function');
+        assert.equal(typeof view.fn, 'function');
       });
     });
   });

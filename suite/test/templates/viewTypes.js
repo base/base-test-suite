@@ -24,7 +24,7 @@ module.exports = function(App, options, runner) {
 
       it('should add collection to the given viewType', function() {
         app.create('layout', {viewType: 'layout'});
-        assert(app.layouts.options.viewType[0] === 'layout');
+        assert.equal(app.layouts.options.viewType[0], 'layout');
       });
 
       it('should add a collection to multiple viewTypes', function() {

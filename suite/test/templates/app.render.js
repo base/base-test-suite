@@ -29,7 +29,7 @@ module.exports = function(App, options, runner) {
       var page = app.pages.getView('foo.bar');
 
       app.render(page, function(err) {
-        assert(err.message === 'Templates#render cannot find an engine for: .bar');
+        assert.equal(err.message, 'Templates#render cannot find an engine for: .bar');
         cb();
       });
     });
@@ -47,7 +47,7 @@ module.exports = function(App, options, runner) {
       app.render(page, function(err, res) {
         if (err) return cb(err);
 
-        assert(res.contents.toString() === 'a HALLE b');
+        assert.equal(res.contents.toString(), 'a HALLE b');
         cb();
       });
     });
@@ -149,7 +149,7 @@ module.exports = function(App, options, runner) {
 
       app.render(page, function(err, res) {
         if (err) return cb(err);
-        assert(res.contents.toString() === 'a HALLE b');
+        assert.equal(res.contents.toString(), 'a HALLE b');
         cb();
       });
     });
@@ -160,7 +160,7 @@ module.exports = function(App, options, runner) {
 
       app.render(view, function(err, view) {
         if (err) return cb(err);
-        assert(view.contents.toString() === 'b');
+        assert.equal(view.contents.toString(), 'b');
         cb();
       });
     });
@@ -171,7 +171,7 @@ module.exports = function(App, options, runner) {
 
       app.render(view, function(err, view) {
         if (err) return cb(err);
-        assert(view.contents.toString() === 'b');
+        assert.equal(view.contents.toString(), 'b');
         cb();
       });
     });

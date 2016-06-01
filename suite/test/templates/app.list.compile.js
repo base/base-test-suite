@@ -19,7 +19,7 @@ module.exports = function(App, options, runner) {
       var item = list.addItem('a.tmpl', {contents: buffer})
         .compile();
 
-      assert(typeof item.fn === 'function');
+      assert.equal(typeof item.fn, 'function');
     });
 
     it('should use the compiled function to render:', function() {
@@ -28,8 +28,8 @@ module.exports = function(App, options, runner) {
         .compile();
 
       assert(item.fn({title: 'z'}));
-      assert(typeof item.fn({title: 'z'}) === 'string');
-      assert(item.fn({title: 'z'}) === 'a z c');
+      assert.equal(typeof item.fn({title: 'z'}), 'string');
+      assert.equal(item.fn({title: 'z'}), 'a z c');
     });
 
     it('should compile a view by name:', function() {
@@ -39,8 +39,8 @@ module.exports = function(App, options, runner) {
       var item = list.compile('a.tmpl');
 
       assert(item.fn({title: 'z'}));
-      assert(typeof item.fn({title: 'z'}) === 'string');
-      assert(item.fn({title: 'z'}) === 'a z c');
+      assert.equal(typeof item.fn({title: 'z'}), 'string');
+      assert.equal(item.fn({title: 'z'}), 'a z c');
     });
   });
 

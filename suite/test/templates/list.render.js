@@ -32,7 +32,7 @@ module.exports = function(App, options, runner) {
         var page = posts.getItem('foo.bar');
 
         posts.render(page, function(err) {
-          assert(err.message === 'List#render cannot find an engine for: .bar');
+          assert.equal(err.message, 'List#render cannot find an engine for: .bar');
           cb();
         });
       });
@@ -50,7 +50,7 @@ module.exports = function(App, options, runner) {
         posts.render(page, function(err, res) {
           if (err) return cb(err);
 
-          assert(res.content === 'a HALLE b');
+          assert.equal(res.content, 'a HALLE b');
           cb();
         });
       });
@@ -66,7 +66,7 @@ module.exports = function(App, options, runner) {
 
         posts.render(page, function(err, res) {
           if (err) return cb(err);
-          assert(res.content === 'a HALLE b');
+          assert.equal(res.content, 'a HALLE b');
           cb();
         });
       });
@@ -77,7 +77,7 @@ module.exports = function(App, options, runner) {
 
         posts.render(item, function(err, item) {
           if (err) return cb(err);
-          assert(item.contents.toString() === 'b');
+          assert.equal(item.contents.toString(), 'b');
           cb();
         });
       });
@@ -88,7 +88,7 @@ module.exports = function(App, options, runner) {
 
         posts.render(item, function(err, item) {
           if (err) return cb(err);
-          assert(item.contents.toString() === 'b');
+          assert.equal(item.contents.toString(), 'b');
           cb();
         });
       });
@@ -98,7 +98,7 @@ module.exports = function(App, options, runner) {
 
         posts.render('a.tmpl', function(err, item) {
           if (err) return cb(err);
-          assert(item.content === 'b');
+          assert.equal(item.content, 'b');
           cb();
         });
       });
@@ -134,9 +134,9 @@ module.exports = function(App, options, runner) {
 
         posts.renderEach(function(err, items) {
           if (err) return cb(err);
-          assert(items[0].content === 'aaa');
-          assert(items[9].content === 'jjj');
-          assert(items.length === 10);
+          assert.equal(items[0].content, 'aaa');
+          assert.equal(items[9].content, 'jjj');
+          assert.equal(items.length, 10);
           cb();
         });
       });

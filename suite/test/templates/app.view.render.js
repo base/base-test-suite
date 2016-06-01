@@ -25,7 +25,7 @@ module.exports = function(App, options, runner) {
           .render(function(err, res) {
             if (err) return cb(err);
 
-            assert(res.contents.toString() === 'a HALLE b');
+            assert.equal(res.contents.toString(), 'a HALLE b');
             cb();
           });
       });
@@ -46,7 +46,7 @@ module.exports = function(App, options, runner) {
           .render(function(err, res) {
             if (err) return cb(err);
 
-            assert(res.contents.toString() === 'a halle b');
+            assert.equal(res.contents.toString(), 'a halle b');
             cb();
           });
       });
@@ -64,7 +64,7 @@ module.exports = function(App, options, runner) {
         app.page('a.tmpl', {contents: buffer, locals: locals})
           .render(function(err, res) {
             if (err) return cb(err);
-            assert(res.contents.toString() === 'a foo Halle b');
+            assert.equal(res.contents.toString(), 'a foo Halle b');
             cb();
           });
       });
@@ -83,7 +83,7 @@ module.exports = function(App, options, runner) {
         app.page('a.tmpl', {contents: buffer, locals: locals, options: {engine: 'hbs'}})
           .render(function(err, res) {
             if (err) return cb(err);
-            assert(res.contents.toString() === 'a foo Halle b');
+            assert.equal(res.contents.toString(), 'a foo Halle b');
             cb();
           });
       });

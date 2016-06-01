@@ -25,7 +25,7 @@ module.exports = function(App, options, runner) {
       app.views.pages.abc.read();
 
       assert('content' in app.views.pages.abc);
-      assert(typeof app.views.pages.abc.content === 'string');
+      assert.equal(typeof app.views.pages.abc.content, 'string');
       cb();
     });
   });

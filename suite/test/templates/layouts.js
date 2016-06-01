@@ -191,9 +191,9 @@ module.exports = function(App, options, runner) {
 
       app.render(page, function(err, view) {
         if (err) return cb(err);
-        assert(view.layoutStack.length === 4);
-        assert(typeof view.layoutStack[0] === 'object');
-        assert(typeof view.layoutStack[0].depth === 'number');
+        assert.equal(view.layoutStack.length, 4);
+        assert.equal(typeof view.layoutStack[0], 'object');
+        assert.equal(typeof view.layoutStack[0].depth, 'number');
         cb();
       });
     });

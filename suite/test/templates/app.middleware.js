@@ -15,27 +15,27 @@ module.exports = function(App, options, runner) {
     it('should call the all method for every middleware method:', function() {
       var i = 0;
       app.all(/./, function(view, next) {
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
         i++;
         next();
       });
 
-      assert(i === 0);
+      assert.equal(i, 0);
       app.page('foo.tmpl', {content: 'foo'});
-      assert(i === 1);
+      assert.equal(i, 1);
     });
 
     it('should call the onLoad method when a view is loaded:', function() {
       var i = 0;
       app.onLoad(/./, function(view, next) {
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
         i++;
         next();
       });
 
-      assert(i === 0);
+      assert.equal(i, 0);
       app.page('foo.tmpl', {content: 'foo'});
-      assert(i === 1);
+      assert.equal(i, 1);
     });
 
     it('should emit an event when a handler is called:', function(cb) {

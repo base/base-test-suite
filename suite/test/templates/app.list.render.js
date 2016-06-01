@@ -33,7 +33,7 @@ module.exports = function(App, options, runner) {
         var page = pages.getView('foo.bar');
 
         app.pages.render(page, function(err) {
-          assert(err.message === 'Views#render cannot find an engine for: .bar');
+          assert.equal(err.message, 'Views#render cannot find an engine for: .bar');
           cb();
         });
       });
@@ -50,7 +50,7 @@ module.exports = function(App, options, runner) {
         app.render(page, function(err, res) {
           if (err) return cb(err);
 
-          assert(res.content === 'a HALLEapp b');
+          assert.equal(res.content, 'a HALLEapp b');
           cb();
         });
       });
@@ -68,7 +68,7 @@ module.exports = function(App, options, runner) {
         pages.render(page, function(err, res) {
           if (err) return cb(err);
 
-          assert(res.content === 'a HALLEapp b');
+          assert.equal(res.content, 'a HALLEapp b');
           cb();
         });
       });
@@ -84,7 +84,7 @@ module.exports = function(App, options, runner) {
 
         pages.render(page, function(err, res) {
           if (err) return cb(err);
-          assert(res.content === 'a HALLE b');
+          assert.equal(res.content, 'a HALLE b');
           cb();
         });
       });
@@ -95,7 +95,7 @@ module.exports = function(App, options, runner) {
 
         pages.render(view, function(err, view) {
           if (err) return cb(err);
-          assert(view.contents.toString() === 'b');
+          assert.equal(view.contents.toString(), 'b');
           cb();
         });
       });
@@ -106,7 +106,7 @@ module.exports = function(App, options, runner) {
 
         pages.render(view, function(err, view) {
           if (err) return cb(err);
-          assert(view.contents.toString() === 'b');
+          assert.equal(view.contents.toString(), 'b');
           cb();
         });
       });
@@ -116,7 +116,7 @@ module.exports = function(App, options, runner) {
 
         pages.render('a.tmpl', function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
       });
@@ -151,9 +151,9 @@ module.exports = function(App, options, runner) {
 
         pages.renderEach(function(err, items) {
           if (err) return cb(err);
-          assert(items[0].content === 'aaa');
-          assert(items[9].content === 'jjj');
-          assert(items.length === 10);
+          assert.equal(items[0].content, 'aaa');
+          assert.equal(items[9].content, 'jjj');
+          assert.equal(items.length, 10);
           cb();
         });
       });
