@@ -63,7 +63,7 @@ module.exports = function(App, options, runner) {
     });
 
     it('should return undefined when no set', function() {
-      assert(app.get('a') === undefined);
+      assert.equal(app.get('a'), undefined);
     });
 
     it('should otherwise return the value', function() {

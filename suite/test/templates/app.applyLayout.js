@@ -77,7 +77,7 @@ module.exports = function(App, options, runner) {
         var view = app.pages.getView('a.tmpl');
         app.render(view, function(err, res) {
           if (err) return cb(err);
-          assert(res.contents.toString() === 'before Halle after');
+          assert.equal(res.contents.toString(), 'before Halle after');
           cb();
         });
       });

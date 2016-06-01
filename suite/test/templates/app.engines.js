@@ -22,7 +22,7 @@ module.exports = function(App, options, runner) {
 
     it('should register an engine to the given extension', function() {
       app.engine('hbs', function() {});
-      assert(typeof app.engines['.hbs'] === 'object');
+      assert.equal(typeof app.engines['.hbs'], 'object');
     });
 
     it('should set an engine with the given extension', function() {
@@ -38,7 +38,7 @@ module.exports = function(App, options, runner) {
     it('should get an engine:', function() {
       app.engine('hbs', function() {});
       var hbs = app.engine('hbs');
-      assert(typeof hbs === 'object');
+      assert.equal(typeof hbs, 'object');
       assert(hbs.hasOwnProperty('render'));
       assert(hbs.hasOwnProperty('compile'));
     });
@@ -48,10 +48,10 @@ module.exports = function(App, options, runner) {
       assert.equal(typeof hbs, 'undefined');
     });
 
-    it('should register multiple engines to the given extension', function() {
+    it('should register an engine with multiple extensions', function() {
       app.engine(['hbs', 'md'], function() {});
-      assert(typeof app.engines['.hbs'] === 'object');
-      assert(typeof app.engines['.md'] === 'object');
+      assert(app.engines.hasOwnProperty('.hbs'));
+      assert(app.engines.hasOwnProperty('.md'));
     });
   });
 
@@ -114,7 +114,7 @@ module.exports = function(App, options, runner) {
       app.page('a.tmpl', {content: '<%= a %>', locals: {a: 'b'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -125,7 +125,7 @@ module.exports = function(App, options, runner) {
       app.post('a', {content: '{{a}}', locals: {a: 'b'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -135,7 +135,7 @@ module.exports = function(App, options, runner) {
       app.post('a', {content: '{{a}}', engine: 'hbs', locals: {a: 'b'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -145,7 +145,7 @@ module.exports = function(App, options, runner) {
       app.post('a', {content: '{{a}}', locals: {a: 'b'}, data: {engine: 'hbs'}})
         .render(function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });
@@ -155,7 +155,7 @@ module.exports = function(App, options, runner) {
       app.post('a', {content: '{{a}}', locals: {a: 'b'}})
         .render({engine: 'hbs'}, function(err, view) {
           if (err) return cb(err);
-          assert(view.content === 'b');
+          assert.equal(view.content, 'b');
           cb();
         });
     });

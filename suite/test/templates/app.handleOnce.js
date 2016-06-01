@@ -18,7 +18,7 @@ module.exports = function(App, options, runner) {
       app.handleOnce('foo', page, function(err, view) {
         if (err) return cb(err);
 
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
         cb();
       });
     });
@@ -30,7 +30,7 @@ module.exports = function(App, options, runner) {
       app.handleOnce('foo', page, function(err, view) {
         if (err) return cb(err);
 
-        assert(typeof view.path === 'string');
+        assert.equal(typeof view.path, 'string');
         cb();
       });
     });
