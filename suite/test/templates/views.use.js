@@ -16,27 +16,28 @@ module.exports = function(App, options, runner) {
 
     it('should expose the instance to `use`:', function(cb) {
       collection.use(function(inst) {
-        assert(inst instanceof Views);
+        assert(inst.isViews);
         cb();
       });
     });
 
     it('should be chainable:', function(cb) {
-      collection.use(function(inst) {
-        assert(inst instanceof Views);
-      })
+      collection
         .use(function(inst) {
-          assert(inst instanceof Views);
+          assert(inst.isViews);
         })
         .use(function(inst) {
-          assert(inst instanceof Views);
+          assert(inst.isViews);
+        })
+        .use(function(inst) {
+          assert(inst.isViews);
           cb();
         });
     });
 
     it('should expose the collection to a plugin:', function() {
       collection.use(function(views) {
-        assert(views instanceof Views);
+        assert(views.isViews);
         views.foo = views.addView.bind(views);
       });
 
@@ -47,15 +48,15 @@ module.exports = function(App, options, runner) {
     it('should expose collection when chained:', function() {
       collection
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
           views.foo = views.addView.bind(views);
         })
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
           views.bar = views.addView.bind(views);
         })
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
           views.baz = views.addView.bind(views);
         });
 
@@ -74,15 +75,15 @@ module.exports = function(App, options, runner) {
       collection = new Views({View: require('vinyl')});
       collection
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
           views.foo = views.addView.bind(views);
         })
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
           views.bar = views.addView.bind(views);
         })
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
           views.baz = views.addView.bind(views);
         });
 
@@ -99,11 +100,11 @@ module.exports = function(App, options, runner) {
 
     it('should pass to view `use` if a function is returned:', function() {
       collection.use(function(views) {
-        assert(views instanceof Views);
+        assert(views.isViews);
 
         return function(view) {
           view.foo = views.addView.bind(views);
-          assert(view instanceof View);
+          assert(view.isView);
         };
       });
 
@@ -121,27 +122,27 @@ module.exports = function(App, options, runner) {
     it('should be chainable when a view function is returned:', function() {
       collection
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
 
           return function(view) {
             view.foo = views.addView.bind(views);
-            assert(view instanceof View);
+            assert(view.isView);
           };
         })
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
 
           return function(view) {
             view.bar = views.addView.bind(views);
-            assert(view instanceof View);
+            assert(view.isView);
           };
         })
         .use(function(views) {
-          assert(views instanceof Views);
+          assert(views.isViews);
 
           return function(view) {
             view.baz = views.addView.bind(views);
-            assert(view instanceof View);
+            assert(view.isView);
           };
         });
 

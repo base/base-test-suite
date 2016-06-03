@@ -22,11 +22,6 @@ module.exports = function(App, options, runner) {
         var list = new List();
         assert(list instanceof List);
       });
-
-      it('should instaniate without `new`', function() {
-        var list = List();
-        assert(list instanceof List);
-      });
     });
 
     describe('static methods', function() {
@@ -258,6 +253,9 @@ module.exports = function(App, options, runner) {
             'd.md': {locals: { date: '2014-01-01', foo: 'xxx', bar: 3 }}
           }, addContents);
 
+          assert(isBuffer(list.items[0].contents));
+          assert(isBuffer(list.items[1].contents));
+          assert(isBuffer(list.items[2].contents));
           cb(new Error('expected an error'));
         } catch (err) {
           assert.equal(err.message, 'expected list to be an array.');

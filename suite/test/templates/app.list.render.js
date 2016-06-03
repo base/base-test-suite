@@ -1,11 +1,11 @@
 'use strict';
 
 var assert = require('assert');
+var each = require('async-each');
 
 module.exports = function(App, options, runner) {
   var app;
 
-  var each = require('async-each');
   var List = App.List;
   var pages, app;
 

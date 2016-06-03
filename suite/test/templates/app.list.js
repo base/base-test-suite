@@ -6,9 +6,8 @@ var path = require('path');
 var fixtures = path.resolve.bind(path, __dirname, 'fixtures');
 
 module.exports = function(App, options, runner) {
-  var app;
-
   var List = App.List;
+  var app;
 
   describe('app.list', function() {
     describe('method', function() {
@@ -20,14 +19,9 @@ module.exports = function(App, options, runner) {
         assert.equal(typeof app.list, 'function');
       });
 
-      it('should return a new list', function() {
-        var list = app.list();
-        assert.equal(typeof list, 'object');
-      });
-
       it('should have isList property', function() {
         var list = app.list();
-        assert.equal(list.isList, true);
+        assert(list.isList);
       });
     });
 

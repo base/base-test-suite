@@ -86,7 +86,7 @@ module.exports = function(App, options, runner) {
           function() {}
         ]);
 
-        assert(Array.isArray(route.stack), 'should be an array');
+        assert(Array.isArray(route.stack));
         assert.equal(route.stack.length, 1);
       });
     });

@@ -43,7 +43,6 @@ module.exports = function(App, options, runner) {
 
       var methods = [
         'use',
-        'setItem',
         'addItem',
         'addItems',
         'addList',
@@ -70,10 +69,6 @@ module.exports = function(App, options, runner) {
 
       it('should expose isCollection property', function() {
         assert.equal(typeof collection.isCollection, 'boolean');
-      });
-
-      it('should expose queue property', function() {
-        assert(Array.isArray(collection.queue));
       });
 
       it('should expose items property', function() {
@@ -385,76 +380,6 @@ module.exports = function(App, options, runner) {
         assert(collection.items.hasOwnProperty('a.txt'));
         assert.equal(collection.items['a.txt'].path, 'a.txt');
       });
-
-      it('should load an object of items from an event', function() {
-        var collection = new Collection();
-
-        collection.on('addItems', function(items) {
-          for (var key in items) {
-            collection.addItem('foo/' + key, items[key]);
-            delete items[key];
-          }
-        });
-
-        collection.addItems({
-          a: {path: 'a.txt'},
-          b: {path: 'b.txt'},
-          c: {path: 'c.txt'}
-        });
-
-        assert(collection.items.hasOwnProperty('foo/a'));
-        assert.equal(collection.items['foo/a'].path, 'a.txt');
-      });
-
-      it('should signal `loaded` when finished (addItems)', function() {
-        var collection = new Collection();
-
-        collection.on('addItems', function(items) {
-          for (var key in items) {
-            if (key === 'c') {
-              collection.loaded = true;
-              break;
-            }
-            collection.addItem('foo/' + key, items[key]);
-          }
-        });
-
-        collection.addItems({
-          a: {path: 'a.txt'},
-          b: {path: 'b.txt'},
-          c: {path: 'c.txt'}
-        });
-
-        assert(collection.items.hasOwnProperty('foo/a'));
-        assert(!collection.items.hasOwnProperty('foo/c'));
-        assert.equal(collection.items['foo/a'].path, 'a.txt');
-      });
-
-      it('should signal `loaded` when finished (addList)', function() {
-        var collection = new Collection();
-
-        collection.on('addList', function(items) {
-          for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            if (item.key === 'c') {
-              collection.loaded = true;
-              break;
-            }
-            item.key = 'foo/' + item.key;
-            collection.addItem(item.key, item);
-          }
-        });
-
-        collection.addList([
-          {key: 'a', path: 'a.txt'},
-          {key: 'b', path: 'b.txt'},
-          {key: 'c', path: 'c.txt'}
-        ]);
-
-        assert(collection.items.hasOwnProperty('foo/a'));
-        assert.equal(collection.items['foo/a'].path, 'a.txt');
-        assert(!collection.items.hasOwnProperty('foo/c'));
-      });
     });
 
     describe('getItem', function() {
@@ -469,54 +394,6 @@ module.exports = function(App, options, runner) {
         assert.equal(collection.getItem('one').contents.toString(), 'aaa');
         assert.equal(collection.getItem('two').contents.toString(), 'zzz');
       });
-    });
-  });
-
-  describe('queue', function() {
-    beforeEach(function() {
-      collection = new Collection();
-    });
-
-    it('should emit arguments on addItem', function(cb) {
-      collection.on('addItem', function(args) {
-        assert.equal(args[0], 'a');
-        assert.equal(args[1], 'b');
-        assert.equal(args[2], 'c');
-        assert.equal(args[3], 'd');
-        assert.equal(args[4], 'e');
-        cb();
-      });
-
-      collection.addItem('a', 'b', 'c', 'd', 'e');
-    });
-
-    it('should expose the `queue` property for loading items', function() {
-      collection.queue.push(collection.item('b', {path: 'b'}));
-
-      collection.addItem('a', {path: 'a'});
-      assert(collection.items.hasOwnProperty('a'));
-      assert(collection.items.hasOwnProperty('b'));
-    });
-
-    it('should load all items on the queue when addItem is called', function() {
-      collection.on('addItem', function(args) {
-        var len = args.length;
-        var last = args[len - 1];
-        if (typeof last === 'string') {
-          args[len - 1] = { content: last };
-        }
-      });
-
-      collection.addItem('a.html', 'aaa');
-      collection.addItem('b.html', 'bbb');
-      collection.addItem('c.html', 'ccc');
-
-      assert(collection.items.hasOwnProperty('a.html'));
-      assert.equal(collection.getItem('a.html').content, 'aaa');
-      assert(collection.items.hasOwnProperty('b.html'));
-      assert.equal(collection.getItem('b.html').content, 'bbb');
-      assert(collection.items.hasOwnProperty('c.html'));
-      assert.equal(collection.getItem('c.html').content, 'ccc');
     });
   });
 

@@ -2,26 +2,20 @@
 
 var fs = require('fs');
 var path = require('path');
+var util = require('util');
 var assert = require('assert');
+var es = require('event-stream');
+var Stream = require('stream');
 
 module.exports = function(App, options, runner) {
-  var app;
-
-  var util = require('util');
-  var es = require('event-stream');
-  var Stream = require('stream');
   var Item = App.Item;
   var item;
+  var app;
 
   describe('Item', function() {
     describe('instance', function() {
       it('should create an instance of Item:', function() {
         item = new Item();
-        assert(item instanceof Item);
-      });
-
-      it('should instantiate without new:', function() {
-        item = Item();
         assert(item instanceof Item);
       });
 

@@ -4,12 +4,10 @@ var path = require('path');
 var assert = require('assert');
 var rimraf = require('rimraf');
 var File = require('vinyl');
-var vfs = require('base-fs');
-var fixtures = path.resolve.bind(path, __dirname, 'fixtures');
 
 module.exports = function(App, options, runner) {
   var app;
-  
+
   describe('handlers', function() {
     describe('custom handlers', function() {
       beforeEach(function() {

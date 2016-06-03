@@ -3,6 +3,7 @@
 var opts = {alias: {pattern: 'p'}};
 var argv = require('yargs-parser')(process.argv.slice(2), opts);
 var assemble = require('assemble-core');
+var templates = require('templates');
 var runner = require('base-test-runner')(argv);
 var suite = require('..');
 
@@ -15,6 +16,7 @@ runner.on('assemble-core', function(file) {
 });
 
 runner.on('templates', function(file) {
+  require(file.path)(templates);
   require(file.path)(assemble);
 });
 

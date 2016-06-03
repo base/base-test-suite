@@ -13,27 +13,16 @@ module.exports = function(App, options, runner) {
   describe('app.lookups', function() {
     beforeEach(function() {
       app = new App();
+      var files = resolve.sync(path.resolve(__dirname, 'fixtures/templates/*.tmpl'));
+
       app.option('renameKey', function(key) {
         return path.basename(key);
       });
-      app.create('pages')
-        .use(function(pages) {
-          pages.on('addViews', function(glob) {
-            var files = resolve.sync(glob);
-            files.forEach(function(fp) {
-              pages.addView(fp, {path: fp});
-            });
-            pages.loaded = true;
-          });
-          return function(view) {
-            view.read = function() {
-              this.contents = fs.readFileSync(this.path);
-            };
-            return view;
-          };
-        });
 
-      app.pages(fixtures('templates/*.tmpl'));
+      app.create('pages');
+      files.forEach(function(file) {
+        app.pages.addView({path: file, contents: fs.readFileSync(file)});
+      });
     });
 
     describe('getView', function() {

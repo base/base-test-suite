@@ -39,7 +39,6 @@ module.exports = function(App, options, runner) {
 
       var methods = [
         'use',
-        'setView',
         'addView',
         'addViews',
         'addList',
@@ -66,10 +65,6 @@ module.exports = function(App, options, runner) {
 
       it('should expose isCollection property', function() {
         assert.equal(typeof collection.isCollection, 'boolean');
-      });
-
-      it('should expose queue property', function() {
-        assert(Array.isArray(collection.queue));
       });
 
       it('should expose views property', function() {
@@ -171,7 +166,7 @@ module.exports = function(App, options, runner) {
       it('should expose the `isType` method on items', function() {
         var collection = new Views({View: View});
         var view = new View({content: '...'});
-        collection.setView('one', view);
+        collection.addView('one', view);
 
         var one = collection.getView('one');
         assert(one.isType('renderable'));
@@ -182,7 +177,7 @@ module.exports = function(App, options, runner) {
         collection.viewType(['partial']);
 
         var view = new View({content: '...'});
-        collection.setView('one', view);
+        collection.addView('one', view);
 
         var one = collection.getView('one');
         assert(!one.isType('renderable'));
@@ -522,54 +517,6 @@ module.exports = function(App, options, runner) {
         collection.addView('a/b/c/d.hbs', {content: 'foo bar baz'});
         assert.equal(collection.getView('a/b/c/d.hbs').contents.toString(), 'foo bar baz');
       });
-    });
-  });
-
-  describe('queue', function() {
-    beforeEach(function() {
-      collection = new Views();
-    });
-
-    it('should emit arguments on addView', function(cb) {
-      collection.on('addView', function(args) {
-        assert.equal(args[0], 'a');
-        assert.equal(args[1], 'b');
-        assert.equal(args[2], 'c');
-        assert.equal(args[3], 'd');
-        assert.equal(args[4], 'e');
-        cb();
-      });
-
-      collection.addView('a', 'b', 'c', 'd', 'e');
-    });
-
-    it('should expose the `queue` property for loading views', function() {
-      collection.queue.push(collection.view('b', {path: 'b'}));
-
-      collection.addView('a', {path: 'a'});
-      assert(collection.views.hasOwnProperty('a'));
-      assert(collection.views.hasOwnProperty('b'));
-    });
-
-    it('should load all views on the queue when addView is called', function() {
-      collection.on('addView', function(args) {
-        var len = args.length;
-        var last = args[len - 1];
-        if (typeof last === 'string') {
-          args[len - 1] = { content: last };
-        }
-      });
-
-      collection.addView('a.html', 'aaa');
-      collection.addView('b.html', 'bbb');
-      collection.addView('c.html', 'ccc');
-
-      assert(collection.views.hasOwnProperty('a.html'));
-      assert.equal(collection.getView('a.html').content, 'aaa');
-      assert(collection.views.hasOwnProperty('b.html'));
-      assert.equal(collection.getView('b.html').content, 'bbb');
-      assert(collection.views.hasOwnProperty('c.html'));
-      assert.equal(collection.getView('c.html').content, 'ccc');
     });
   });
 };

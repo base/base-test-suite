@@ -3,17 +3,14 @@
 var path = require('path');
 var assert = require('assert');
 var consolidate = require('consolidate');
-var fixtures = path.resolve.bind(path, __dirname, 'fixtures');
+var handlebars = require('engine-handlebars');
+var matter = require('parser-front-matter');
+var swig = consolidate.swig;
+require('swig');
 
 module.exports = function(App, options, runner) {
+  var fixtures = path.resolve.bind(path, __dirname, 'fixtures');
   var app;
-
-  var handlebars = require('engine-handlebars');
-  var matter = require('parser-front-matter');
-  var helpers = require('templates/lib/plugins/helpers');
-  var init = require('templates/lib/plugins/init');
-  var swig = consolidate.swig;
-  require('swig');
 
   describe('helpers', function() {
     describe('prototype methods', function() {
@@ -25,19 +22,6 @@ module.exports = function(App, options, runner) {
       });
       it('should expose `asyncHelper`', function() {
         assert.equal(typeof app.asyncHelper, 'function');
-      });
-    });
-
-    describe('instance', function() {
-      it('should prime _', function() {
-        function Foo() {
-          App.call(this);
-          init(this);
-        }
-        App.extend(Foo);
-        var foo = new Foo();
-        helpers(foo);
-        assert.equal(typeof foo._, 'object');
       });
     });
 
@@ -648,36 +632,29 @@ module.exports = function(App, options, runner) {
           content: '{{{partial "a.hbs" custom.locals}}}'
         });
 
-        app.on('error', function(err) {
-          cb(err);
-        });
-
         var locals = {custom: {locals: {name: 'Halle Nicole' }}};
         app.render('a.hbs', locals, function(err, res) {
-          if (err) {
-            app.emit('error', err);
-            return;
-          }
+          if (err) return cb(err);
           assert.equal(res.content, '<title>Halle Nicole</title>');
+          app.emit('one');
         });
 
-        app.render('with-partial.hbs', locals, function(err, res) {
-          if (err) {
-            app.emit('error', err);
-            return;
-          }
-          assert.equal(res.content, '<title>Halle Nicole</title>');
+        app.on('one', function() {
+          app.render('with-partial.hbs', locals, function(err, res) {
+            if (err) return cb(err);
+            assert.equal(res.content, '<title>Halle Nicole</title>');
+            app.emit('two');
+          });
         });
 
         var page = app.pages.getView('g.md');
         locals.author = page.data.author || locals.author;
-        page.render(locals, function(err, res) {
-          if (err) {
-            app.emit('error', err);
-            return;
-          }
-          assert.equal(res.content, '<title>Brian Woodward</title>');
-          cb(null, res.content);
+        app.on('two', function() {
+          page.render(locals, function(err, res) {
+            if (err) return cb(err);
+            assert.equal(res.content, '<title>Brian Woodward</title>');
+            cb(null, res.content);
+          });
         });
       });
     });
@@ -973,20 +950,12 @@ module.exports = function(App, options, runner) {
           }).join('\n');
         });
 
-        app.partial('list.hbs', {
-          content: '{{list (posts)}}'
-        });
+        app.partial('list.hbs', {content: '{{list (posts)}}'});
 
-        app.page('index.hbs', {
-          content: '{{> list.hbs }}'
-        })
+        app.page('index.hbs', {content: '{{> list.hbs }}'})
           .render(function(err, res) {
             if (err) return cb(err);
-            try {
-              assert.equal(res.content, '- foo\n- bar\n- baz');
-            } catch (err) {
-              return cb(err);
-            }
+            assert.equal(res.content, '- foo\n- bar\n- baz');
             cb();
           });
       });
@@ -1050,10 +1019,9 @@ module.exports = function(App, options, runner) {
         app.bar('b.tmpl', {content: 'bar-b'});
 
         app.bar('one', {content: '<%= view("a.tmpl", "foos", { render: true }) %>'})
-          .render(function(err, foo) {
+          .render(function(err, res) {
             if (err) return cb(err);
-
-            assert.equal(foo.content, 'foo-a');
+            assert.equal(res.content, 'foo-a');
 
             app.bar('two', {content: '<%= view("b.tmpl", "bars", { render: true }) %>'})
               .render(function(err, bar) {

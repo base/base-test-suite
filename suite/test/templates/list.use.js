@@ -16,27 +16,27 @@ module.exports = function(App, options, runner) {
 
     it('should expose the instance to `use`:', function(cb) {
       list.use(function(inst) {
-        assert(inst instanceof List);
+        assert(inst.isList);
         cb();
       });
     });
 
     it('should be chainable:', function(cb) {
       list.use(function(inst) {
-        assert(inst instanceof List);
+        assert(inst.isList);
       })
         .use(function(inst) {
-          assert(inst instanceof List);
+          assert(inst.isList);
         })
         .use(function(inst) {
-          assert(inst instanceof List);
+          assert(inst.isList);
           cb();
         });
     });
 
     it('should expose the list to a plugin:', function() {
       list.use(function(items) {
-        assert(items instanceof List);
+        assert(items.isList);
         items.foo = items.addItem.bind(items);
       });
 
@@ -47,15 +47,15 @@ module.exports = function(App, options, runner) {
     it('should expose list when chained:', function() {
       list
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
           items.foo = items.addItem.bind(items);
         })
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
           items.bar = items.addItem.bind(items);
         })
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
           items.baz = items.addItem.bind(items);
         });
 
@@ -74,15 +74,15 @@ module.exports = function(App, options, runner) {
       list = new List({Item: require('vinyl')});
       list
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
           items.foo = items.addItem.bind(items);
         })
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
           items.bar = items.addItem.bind(items);
         })
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
           items.baz = items.addItem.bind(items);
         });
 
@@ -99,7 +99,7 @@ module.exports = function(App, options, runner) {
 
     it('should pass to item `use` if a function is returned:', function() {
       list.use(function(items) {
-        assert(items instanceof List);
+        assert(items.isList);
 
         return function(item) {
           item.foo = items.addItem.bind(items);
@@ -121,27 +121,27 @@ module.exports = function(App, options, runner) {
     it('should be chainable when a item function is returned:', function() {
       list
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
 
           return function(item) {
             item.foo = items.addItem.bind(items);
-            assert(item instanceof Item);
+            assert(item.isItem);
           };
         })
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
 
           return function(item) {
             item.bar = items.addItem.bind(items);
-            assert(item instanceof Item);
+            assert(item.isItem);
           };
         })
         .use(function(items) {
-          assert(items instanceof List);
+          assert(items.isList);
 
           return function(item) {
             item.baz = items.addItem.bind(items);
-            assert(item instanceof Item);
+            assert(item.isItem);
           };
         });
 
