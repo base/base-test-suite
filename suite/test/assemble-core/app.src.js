@@ -122,10 +122,10 @@ module.exports = function(App, options, runner) {
     });
 
     it('should return an input stream for multiple globs with negation', function(cb) {
-      var expectedPath = path.join(__dirname, 'fixtures/generic/run.dmc');
+      var expectedPath = path.resolve(__dirname, 'fixtures/generic/run.dmc');
       var globArray = [
-        path.join(__dirname, 'fixtures/generic/*.dmc'),
-        '!' + path.join(__dirname, 'fixtures/generic/test.dmc'),
+        path.resolve(__dirname, 'fixtures/generic/*.dmc'),
+        '!' + path.resolve(__dirname, 'fixtures/generic/test.dmc'),
       ];
       var stream = app.src(globArray);
 

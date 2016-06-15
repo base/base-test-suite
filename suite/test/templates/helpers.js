@@ -92,6 +92,31 @@ module.exports = function(App, options, runner) {
         assert.equal(typeof app._.helpers.sync.foo.y, 'function');
         assert.equal(typeof app._.helpers.sync.foo.z, 'function');
       });
+
+      it('should merge helpers onto a helper "group":', function() {
+        app.helperGroup('foo', {
+          x: function() {},
+          y: function() {},
+          z: function() {}
+        });
+
+        assert.equal(typeof app._.helpers.sync.foo.x, 'function');
+        assert.equal(typeof app._.helpers.sync.foo.y, 'function');
+        assert.equal(typeof app._.helpers.sync.foo.z, 'function');
+
+        app.helperGroup('foo', {
+          a: function() {},
+          b: function() {},
+          c: function() {}
+        });
+
+        assert.equal(typeof app._.helpers.sync.foo.a, 'function');
+        assert.equal(typeof app._.helpers.sync.foo.b, 'function');
+        assert.equal(typeof app._.helpers.sync.foo.c, 'function');
+        assert.equal(typeof app._.helpers.sync.foo.x, 'function');
+        assert.equal(typeof app._.helpers.sync.foo.y, 'function');
+        assert.equal(typeof app._.helpers.sync.foo.z, 'function');
+      });
     });
 
     describe('async helpers', function() {
@@ -156,6 +181,32 @@ module.exports = function(App, options, runner) {
           z: function() {}
         }, true);
 
+        assert.equal(typeof app._.helpers.async.foo.x, 'function');
+        assert.equal(typeof app._.helpers.async.foo.y, 'function');
+        assert.equal(typeof app._.helpers.async.foo.z, 'function');
+      });
+
+      it('should merge helpers onto an async helper "group":', function() {
+        app.helperGroup('foo', {
+          x: function() {},
+          y: function() {},
+          z: function() {}
+        }, true);
+
+        assert.equal(typeof app._.helpers.async.foo.x, 'function');
+        assert.equal(typeof app._.helpers.async.foo.y, 'function');
+        assert.equal(typeof app._.helpers.async.foo.z, 'function');
+
+
+        app.helperGroup('foo', {
+          a: function() {},
+          b: function() {},
+          c: function() {}
+        }, true);
+
+        assert.equal(typeof app._.helpers.async.foo.a, 'function');
+        assert.equal(typeof app._.helpers.async.foo.b, 'function');
+        assert.equal(typeof app._.helpers.async.foo.c, 'function');
         assert.equal(typeof app._.helpers.async.foo.x, 'function');
         assert.equal(typeof app._.helpers.async.foo.y, 'function');
         assert.equal(typeof app._.helpers.async.foo.z, 'function');
@@ -403,6 +454,20 @@ module.exports = function(App, options, runner) {
         app.render('xyz.md', {name: 'DDD'}, function(err, res) {
           assert(err);
           assert.equal(err.message, 'helper "partial" cannot find "def.md"');
+          cb();
+        });
+      });
+
+      it('should return a List when no parameters are passed', function(cb) {
+        app.partial('abc.md', {content: '---\nname: "AAA"\n---\n<%= name %>', locals: {name: 'BBB'}});
+        app.page('xyz.md', {path: 'xyz.md', content: 'foo <%= list(partials()) %> <%= partial("abc") %> bar'});
+        app.helper('list', function(list) {
+          return list.keys.join(' ');
+        });
+
+        app.render('xyz.md', {name: 'DDD'}, function(err, res) {
+          if (err) return cb(err);
+          assert.equal(res.content, 'foo abc.md AAA bar');
           cb();
         });
       });

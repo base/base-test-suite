@@ -70,10 +70,6 @@ module.exports = function(App, options, runner) {
         assert(Array.isArray(list.keys));
       });
 
-      it('should expose the queue property', function() {
-        assert(Array.isArray(list.queue));
-      });
-
       it('should expose the items property', function() {
         assert(Array.isArray(list.items));
       });
@@ -285,54 +281,6 @@ module.exports = function(App, options, runner) {
 
         assert.equal(list.items.length, 2);
         assert.equal(list.keys.indexOf('d.md'), -1);
-      });
-    });
-
-    describe('queue', function() {
-      beforeEach(function() {
-        list = new List();
-      });
-
-      it('should emit arguments on addItem', function(cb) {
-        list.on('addItem', function(args) {
-          assert.equal(args[0], 'a');
-          assert.equal(args[1], 'b');
-          assert.equal(args[2], 'c');
-          assert.equal(args[3], 'd');
-          assert.equal(args[4], 'e');
-          cb();
-        });
-
-        list.addItem('a', 'b', 'c', 'd', 'e');
-      });
-
-      it('should expose the `queue` property for loading items', function() {
-        list.queue.push(list.item('b', {path: 'b'}));
-
-        list.addItem('a', {path: 'a'});
-        assert.equal(list.items[0].key, 'a');
-        assert.equal(list.items[1].key, 'b');
-      });
-
-      it('should load all items on the queue when addItem is called', function() {
-        list.on('addItem', function(args) {
-          var len = args.length;
-          var last = args[len - 1];
-          if (typeof last === 'string') {
-            args[len - 1] = { content: last };
-          }
-        });
-
-        list.addItem('a.html', 'aaa');
-        list.addItem('b.html', 'bbb');
-        list.addItem('c.html', 'ccc');
-
-        assert.equal(list.items[0].path, 'a.html');
-        assert.equal(list.getItem('a.html').content, 'aaa');
-        assert.equal(list.items[1].path, 'b.html');
-        assert.equal(list.getItem('b.html').content, 'bbb');
-        assert.equal(list.items[2].path, 'c.html');
-        assert.equal(list.getItem('c.html').content, 'ccc');
       });
     });
 

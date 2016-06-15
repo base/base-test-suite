@@ -14,7 +14,6 @@ module.exports = function(App, options, runner) {
     beforeEach(function() {
       app = new App();
       var files = resolve.sync(path.resolve(__dirname, 'fixtures/templates/*.tmpl'));
-
       app.option('renameKey', function(key) {
         return path.basename(key);
       });

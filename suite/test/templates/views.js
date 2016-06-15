@@ -166,7 +166,7 @@ module.exports = function(App, options, runner) {
       it('should expose the `isType` method on items', function() {
         var collection = new Views({View: View});
         var view = new View({content: '...'});
-        collection.addView('one', view);
+        collection.setView('one', view);
 
         var one = collection.getView('one');
         assert(one.isType('renderable'));
@@ -177,7 +177,7 @@ module.exports = function(App, options, runner) {
         collection.viewType(['partial']);
 
         var view = new View({content: '...'});
-        collection.addView('one', view);
+        collection.setView('one', view);
 
         var one = collection.getView('one');
         assert(!one.isType('renderable'));
