@@ -82,7 +82,8 @@
       "base",
       "generate",
       "templates",
-      "verb"
+      "verb",
+      "verb-readme-generator"
     ],
     "lint": {
       "reflinks": true
@@ -90,12 +91,12 @@
   },
   "lintDeps": {
     "dependencies": [
-      "suite/**/*.js",
-      "lib/lookup.js"
+      "lib/lookup.js",
+      "suite/**/*.js"
     ],
     "devDependencies": [
-      "test/*.js",
-      "lib/converter.js"
+      "lib/converter.js",
+      "test/*.js"
     ]
   }
 }
