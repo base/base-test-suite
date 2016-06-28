@@ -315,7 +315,7 @@ module.exports = function(App, options, runner) {
       app.render(page, function(err, view) {
         if (err) return cb(err);
         assert.equal(typeof view.content, 'string');
-        assert(/AAA/.test(view.content));
+        assert(/title/.test(view.content));
         cb();
       });
     });

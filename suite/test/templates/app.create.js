@@ -181,7 +181,7 @@ module.exports = function(App, options, runner) {
           .use(function(views) {
             views.read = function(name) {
               var view = this.getView(name);
-              if (!view.contents) {
+              if (!view.contents || view.contents.length === 0) {
                 view.contents = fs.readFileSync(view.path);
               }
             };
