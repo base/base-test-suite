@@ -2,11 +2,11 @@
   "name": "base-test-suite",
   "description": "Test suite for base projects.",
   "version": "0.1.11",
-  "homepage": "https://github.com/jonschlinkert/base-test-suite",
+  "homepage": "https://github.com/node-base/base-test-suite",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
-  "repository": "jonschlinkert/base-test-suite",
+  "repository": "node-base/base-test-suite",
   "bugs": {
-    "url": "https://github.com/jonschlinkert/base-test-suite/issues"
+    "url": "https://github.com/node-base/base-test-suite/issues"
   },
   "license": "MIT",
   "files": [
