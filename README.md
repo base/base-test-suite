@@ -1,4 +1,4 @@
-# base-test-suite [![NPM version](https://img.shields.io/npm/v/base-test-suite.svg?style=flat)](https://www.npmjs.com/package/base-test-suite) [![NPM downloads](https://img.shields.io/npm/dm/base-test-suite.svg?style=flat)](https://npmjs.org/package/base-test-suite) [![Build Status](https://img.shields.io/travis/jonschlinkert/base-test-suite.svg?style=flat)](https://travis-ci.org/jonschlinkert/base-test-suite)
+# base-test-suite [![NPM version](https://img.shields.io/npm/v/base-test-suite.svg?style=flat)](https://www.npmjs.com/package/base-test-suite) [![NPM downloads](https://img.shields.io/npm/dm/base-test-suite.svg?style=flat)](https://npmjs.org/package/base-test-suite) [![Build Status](https://img.shields.io/travis/node-base/base-test-suite.svg?style=flat)](https://travis-ci.org/node-base/base-test-suite)
 
 Test suite for base projects.
 
@@ -78,7 +78,7 @@ $ npm install -d && npm test
 ## License
 
 Copyright © 2016, [Jon Schlinkert](https://github.com/jonschlinkert).
-Released under the [MIT license](https://github.com/jonschlinkert/base-test-suite/blob/master/LICENSE).
+Released under the [MIT license](https://github.com/node-base/base-test-suite/blob/master/LICENSE).
 
 ***
 
