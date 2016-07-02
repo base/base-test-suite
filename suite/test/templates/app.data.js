@@ -55,17 +55,6 @@ module.exports = function(App, options, runner) {
       assert.equal(app.cache.data.prefix_c.three.c, 'ccc');
     });
 
-    it('should use `renameKey` defined on data opts:', function() {
-      app.data(fixtures('data/*.json'), {
-        renameKey: function(key) {
-          return 'prefix_' + path.basename(key, path.extname(key));
-        }
-      });
-      assert.equal(app.cache.data.prefix_a.one.a, 'aaa');
-      assert.equal(app.cache.data.prefix_b.two.b, 'bbb');
-      assert.equal(app.cache.data.prefix_c.three.c, 'ccc');
-    });
-
     it('should extend `cache.data`', function() {
       app.data({a: 'aaa', b: 'bbb', c: 'ccc'});
       app.data({x: 'xxx', y: 'yyy', z: 'zzz'});
