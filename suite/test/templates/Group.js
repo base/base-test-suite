@@ -7,6 +7,8 @@ assert.containEql = support.containEql;
 module.exports = function(App, options, runner) {
   var List = App.List;
   var Group = App.Group;
+  var Views = App.Views;
+  var views;
   var group;
   var app;
 
@@ -27,13 +29,10 @@ module.exports = function(App, options, runner) {
         assert.deepEqual(group.List, List);
       });
 
-      it('should create an instance of Group with custom List:', function() {
-        function CustomList() {
-          List.apply(this, arguments);
-        }
-        List.extend(CustomList);
-        var group = new Group({List: CustomList});
-        assert.deepEqual(group.List, CustomList);
+      it('should create an instance of Group with `views` and `listViews` properties:', function() {
+        var group = new Group(new Views(), new Views());
+        assert.equal(typeof group.views, 'object');
+        assert.equal(typeof group.listViews, 'object');
       });
     });
 
@@ -94,37 +93,36 @@ module.exports = function(App, options, runner) {
     });
 
     describe('get', function() {
-      it('should get a normal value when not an array', function() {
-        var group = new Group({'foo': {items: [1, 2, 3]}});
-        assert.deepEqual(group.get('foo'), {items: [1, 2, 3]});
+      beforeEach(function() {
+        views = new Views();
+        views.addView('one.hbs', {data: {foo: 'foo', bar: 'bar'}});
+        views.addView('two.hbs', {data: {foo: 'foo', bar: 'bar'}});
+        views.addView('three.hbs', {data: {foo: 'foo', bar: 'bar'}});
+      });
+
+      it('should get a Groups object when not an array', function() {
+        var group = new Group(views);
+        var actual = group.groupBy('data.foo', 'data.bar').get('foo').keys;
+        assert.deepEqual(actual, ['bar']);
       });
 
       it('should get an instance of List when value is an array', function() {
-        var group = new Group({'foo': {items: [{path: 'one.hbs'}, {path: 'two.hbs'}, {path: 'three.hbs'}]}});
-        var list = group.get('foo.items');
+        var group = new Group(views);
+        var list = group.groupBy('data.foo').get('foo');
         assert(list instanceof List);
         assert.deepEqual(list.items.length, 3);
       });
 
       it('should throw an error when trying to use a List method on a non List value', function(cb) {
         try {
-          var group = new Group({'foo': {items: [1, 2, 3]}});
-          var foo = group.get('foo');
+          var group = new Group(views);
+          var foo = group.groupBy('data.foo', 'data.bar').get('foo');
           foo.paginate();
           cb(new Error('expected an error'));
         } catch (err) {
           assert.equal(err.message, 'paginate can only be used with an array of `List` items.');
           cb();
         }
-      });
-
-      it('should not override properties already existing on non List values', function(cb) {
-        var group = new Group({'foo': {items: [1, 2, 3], paginate: function() {
-          assert(true);
-          cb();
-        }}});
-        var foo = group.get('foo');
-        foo.paginate();
       });
     });
 
