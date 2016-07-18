@@ -1,7 +1,7 @@
 {
   "name": "base-test-suite",
   "description": "Test suite for base projects.",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "homepage": "https://github.com/node-base/base-test-suite",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "node-base/base-test-suite",
