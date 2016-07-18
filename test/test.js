@@ -1,3 +1,4 @@
+/* deps:mocha */
 'use strict';
 
 var opts = {alias: {pattern: 'p'}};
