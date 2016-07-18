@@ -92,7 +92,7 @@ module.exports = function(App, options, runner) {
       });
     });
 
-    describe('get', function() {
+    describe('groupBy', function() {
       beforeEach(function() {
         views = new Views();
         views.addView('one.hbs', {data: {foo: 'foo', bar: 'bar'}});
@@ -100,29 +100,10 @@ module.exports = function(App, options, runner) {
         views.addView('three.hbs', {data: {foo: 'foo', bar: 'bar'}});
       });
 
-      it('should get a Groups object when not an array', function() {
+      it('should group views from the provided `views` collection when using `.groupBy`', function() {
         var group = new Group(views);
-        var actual = group.groupBy('data.foo', 'data.bar').get('foo').keys;
-        assert.deepEqual(actual, ['bar']);
-      });
-
-      it('should get an instance of List when value is an array', function() {
-        var group = new Group(views);
-        var list = group.groupBy('data.foo').get('foo');
-        assert(list instanceof List);
-        assert.deepEqual(list.items.length, 3);
-      });
-
-      it('should throw an error when trying to use a List method on a non List value', function(cb) {
-        try {
-          var group = new Group(views);
-          var foo = group.groupBy('data.foo', 'data.bar').get('foo');
-          foo.paginate();
-          cb(new Error('expected an error'));
-        } catch (err) {
-          assert.equal(err.message, 'paginate can only be used with an array of `List` items.');
-          cb();
-        }
+        var actual = group.groupBy('data.foo', 'data.bar');
+        assert.deepEqual(Object.keys(actual.foo), ['bar']);
       });
     });
 
