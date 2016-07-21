@@ -29,7 +29,7 @@ module.exports = function(App, options, runner) {
         assert.deepEqual(group.List, List);
       });
 
-      it('should create an instance of Group with `views` and `listViews` properties:', function() {
+      it.skip('should create an instance of Group with `views` and `listViews` properties:', function() {
         var group = new Group(new Views(), new Views());
         assert.equal(typeof group.views, 'object');
         assert.equal(typeof group.listViews, 'object');
@@ -100,7 +100,7 @@ module.exports = function(App, options, runner) {
         views.addView('three.hbs', {data: {foo: 'foo', bar: 'bar'}});
       });
 
-      it('should group views from the provided `views` collection when using `.groupBy`', function() {
+      it.skip('should group views from the provided `views` collection when using `.groupBy`', function() {
         var group = new Group(views);
         var actual = group.groupBy('data.foo', 'data.bar');
         assert.deepEqual(Object.keys(actual.foo), ['bar']);

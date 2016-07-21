@@ -12,7 +12,7 @@ module.exports = function(App, options, runner) {
   var groups;
   var app;
 
-  describe('groups', function() {
+  describe.skip('groups', function() {
     describe('constructor', function() {
       it('should create an instance of Groups:', function() {
         var groups = new Groups();

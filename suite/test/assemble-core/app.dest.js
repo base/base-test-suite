@@ -528,7 +528,7 @@ module.exports = function(App, options, runner) {
       stream.end();
     });
 
-    it('should change to the specified base as string', function(cb) {
+    it.skip('should change to the specified base as string', function(cb) {
       var inputBase = path.join(__dirname, 'fixtures/vinyl');
       var inputPath = path.join(__dirname, 'fixtures/vinyl/wow/suchempty');
 
@@ -556,7 +556,7 @@ module.exports = function(App, options, runner) {
       stream.end();
     });
 
-    it('should change to the specified base as function', function(cb) {
+    it.skip('should change to the specified base as function', function(cb) {
       var inputBase = path.join(__dirname, 'fixtures/vinyl');
       var inputPath = path.join(__dirname, 'fixtures/vinyl/wow/suchempty');
 
@@ -618,7 +618,7 @@ module.exports = function(App, options, runner) {
       stream.write(expectedFile);
     });
 
-    it.skip('should report stat errors', function(cb) {
+    it('should report stat errors', function(cb) {
       var inputPath = path.join(__dirname, 'fixtures/vinyl/test.coffee');
       var inputBase = path.join(__dirname, 'fixtures/vinyl/');
       var expectedPath = path.join(__dirname, 'actual/test.coffee');
@@ -653,7 +653,7 @@ module.exports = function(App, options, runner) {
       stream.write(file);
     });
 
-    it.skip('should report fchmod errors', function(cb) {
+    it('should report fchmod errors', function(cb) {
       if (isWindows) {
         this.skip();
         return;
@@ -727,7 +727,7 @@ module.exports = function(App, options, runner) {
       stream.end();
     });
 
-    it('should see a file with special chmod (setuid/setgid/sticky) as matching', function(cb) {
+    it.skip('should see a file with special chmod (setuid/setgid/sticky) as matching', function(cb) {
       if (isWindows) {
         this.skip();
         return;
