@@ -1,7 +1,7 @@
 {
   "name": "base-test-suite",
   "description": "Test suite for base projects.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/node-base/base-test-suite",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "node-base/base-test-suite",
@@ -22,7 +22,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "assemble-fs": "^0.6.0",
+    "assemble-fs": "^0.7.0",
     "async-each": "^1.0.0",
     "buffer-equal": "^1.0.0",
     "consolidate": "^0.14.1",
