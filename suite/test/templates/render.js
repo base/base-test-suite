@@ -51,6 +51,7 @@ module.exports = function(App, options, runner) {
 
       it('should emit a re-thrown error when rethrow is true:', function(cb) {
         view = {contents: new Buffer('a <%= foo %> b')};
+        var count = 0;
 
         app = new App({rethrow: true, silent: false});
         app.engine('tmpl', require('engine-base'));
@@ -58,12 +59,14 @@ module.exports = function(App, options, runner) {
 
         app.on('error', function(err) {
           assert.equal(err.message, 'foo is not defined');
-          cb();
+          count++;
         });
 
         app.page('a.tmpl', view)
           .render(function(err) {
             assert.equal(err.message, 'foo is not defined');
+            assert.equal(count, 1);
+            cb();
           });
       });
     });

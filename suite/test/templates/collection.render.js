@@ -67,7 +67,6 @@ module.exports = function(App, options, runner) {
 
         pages.render(page, function(err, res) {
           if (err) return cb(err);
-
           assert.equal(res.content, 'a HALLE b');
           cb();
         });

@@ -33,13 +33,16 @@ module.exports = function(App, options, runner) {
 
       it('should emit an error when a layout cannot be found:', function(cb) {
         app.layout('fofof.tmpl', {content: '..'});
+        var count = 0;
         app.on('error', function(err) {
           assert(/layouts/.test(err.message));
-          cb();
+          count++;
         });
 
         app.page('a.tmpl', page)
           .render(function() {
+            assert.equal(count, 1);
+            cb();
           });
       });
 
@@ -52,12 +55,16 @@ module.exports = function(App, options, runner) {
       });
 
       it('should emit an error - layout defined but no layouts registered:', function(cb) {
+        var count = 0;
         app.on('error', function(err) {
           assert(/layouts/.test(err.message));
-          cb();
+          count++;
         });
+
         app.page('a.tmpl', page)
           .render(function() {
+            assert.equal(count, 1);
+            cb();
           });
       });
 
