@@ -107,12 +107,12 @@ module.exports = function(App, options, runner) {
     });
 
     it('should emit an error event when an error is passed back in a task', function(cb) {
-      app.on('error', function(err) {
+      app.once('error', function(err) {
         assert(err);
         assert.equal(err.message, 'This is an error');
       });
       app.task('default', function(cb) {
-        return cb(new Error('This is an error'));
+        cb(new Error('This is an error'));
       });
       app.build('default', function(err) {
         if (err) return cb();
@@ -122,7 +122,7 @@ module.exports = function(App, options, runner) {
 
     it('should emit an error event when an error is thrown in a task', function(cb) {
       var errors = 0;
-      app.on('error', function(err) {
+      app.once('error', function(err) {
         errors++;
         assert(err);
         assert.equal(err.message, 'This is an error');
