@@ -21,7 +21,6 @@ module.exports = function(App, options, runner) {
           posts.render({});
           cb(new Error('expected an error'));
         } catch (err) {
-          console.log(err);
           assert.equal(err.message, 'List#render is async and expects a callback function');
           cb();
         }

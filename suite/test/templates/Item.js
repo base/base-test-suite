@@ -71,7 +71,7 @@ module.exports = function(App, options, runner) {
 
       it('should use `Item` as the default `_name`', function() {
         item = new Item({});
-        assert.equal(item._name, 'item');
+        assert.equal(item._name, 'Item');
       });
 
       it('should allow `_name` to be set after instantiation', function() {
@@ -800,7 +800,7 @@ module.exports = function(App, options, runner) {
           contents: val
         });
         delete item.base;
-        assert.equal(item.inspect(), '<Item "/test/test.coffee" <Buffer 74 65 73 74>>');
+        assert.equal(item.inspect(), '<Item "test/test.coffee" <Buffer 74 65 73 74>>');
         cb();
       });
 
@@ -1195,7 +1195,7 @@ module.exports = function(App, options, runner) {
           
           cb(new Error('expected an error'));
         } catch (err) {
-          assert.equal(err.message, 'path should be string');
+          assert.equal(err.message, 'path should be a string.');
           cb();
         }
       });
@@ -1210,7 +1210,7 @@ module.exports = function(App, options, runner) {
           
           cb(new Error('expected an error'));
         } catch (err) {
-          assert.equal(err.message, 'path should be string');
+          assert.equal(err.message, 'path should be a string.');
           cb();
         }
       });

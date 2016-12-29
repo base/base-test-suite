@@ -180,25 +180,7 @@ module.exports = function(App, options, runner) {
       }, cb);
     });
 
-    it('should track layout stack history on `layoutStack`:', function(cb) {
-      app.layout('a', {path: 'a.tmpl', content: 'a {% body %} a', layout: 'b'});
-      app.layout('b', {path: 'b.tmpl', content: 'b {% body %} b', layout: 'c'});
-      app.layout('c', {path: 'c.tmpl', content: 'c {% body %} c', layout: 'base'});
-      app.layout('base', {path: 'base.tmpl', content: 'outter {% body %} outter'});
-
-      app.pages('z.tmpl', {path: 'a.tmpl', content: 'inner', layout: 'a'});
-      var page = app.pages.getView('z.tmpl');
-
-      app.render(page, function(err, view) {
-        if (err) return cb(err);
-        assert.equal(view.layoutStack.length, 4);
-        assert.equal(typeof view.layoutStack[0], 'object');
-        assert.equal(typeof view.layoutStack[0].depth, 'number');
-        cb();
-      });
-    });
-
-    it('should track layout stack history on `layoutStack`:', function(cb) {
+    it('should render multiple nested layouts from the `view.layout` property', function(cb) {
       app.layout('a', {path: 'a.tmpl', content: 'a {% body %} a', layout: 'b'});
       app.layout('b', {path: 'b.tmpl', content: 'b {% body %} b', layout: 'c'});
       app.layout('c', {path: 'c.tmpl', content: 'c {% body %} c', layout: 'base'});
@@ -211,6 +193,23 @@ module.exports = function(App, options, runner) {
         if (err) return cb(err);
         assert.equal(typeof view.content, 'string');
         assert.equal(view.content, 'outter c b a inner a b c outter');
+        cb();
+      });
+    });
+
+    it('should track layout stack history on `view.options.layouts`:', function(cb) {
+      app.layout('a', {path: 'a.tmpl', content: 'a {% body %} a', layout: 'b'});
+      app.layout('b', {path: 'b.tmpl', content: 'b {% body %} b', layout: 'c'});
+      app.layout('c', {path: 'c.tmpl', content: 'c {% body %} c', layout: 'base'});
+      app.layout('base', {path: 'base.tmpl', content: 'outter {% body %} outter'});
+
+      app.pages('z.tmpl', {path: 'z.tmpl', content: 'inner', layout: 'a'});
+      var page = app.pages.getView('z.tmpl');
+
+      app.render(page, function(err, view) {
+        if (err) return cb(err);
+        assert(view.options.layouts);
+        assert.equal(Object.keys(view.options.layouts).length, 4);
         cb();
       });
     });

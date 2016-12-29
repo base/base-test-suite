@@ -851,7 +851,7 @@ module.exports = function(App, options, runner) {
           contents: val
         });
         delete view.base;
-        assert.equal(view.inspect(), '<View "/test/test.coffee" <Buffer 74 65 73 74>>');
+        assert.equal(view.inspect(), '<View "test/test.coffee" <Buffer 74 65 73 74>>');
         cb();
       });
 
@@ -1145,7 +1145,7 @@ module.exports = function(App, options, runner) {
           
           cb(new Error('expected an error'));
         } catch (err) {
-          assert.equal(err.message, 'path should be string');
+          assert.equal(err.message, 'path should be a string.');
           cb();
         }
       });
@@ -1160,7 +1160,7 @@ module.exports = function(App, options, runner) {
           
           cb(new Error('expected an error'));
         } catch (err) {
-          assert.equal(err.message, 'path should be string');
+          assert.equal(err.message, 'path should be a string.');
           cb();
         }
       });
