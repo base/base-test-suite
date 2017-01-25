@@ -1,7 +1,7 @@
 {
   "name": "base-test-suite",
   "description": "Test suite for base projects.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "homepage": "https://github.com/node-base/base-test-suite",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "node-base/base-test-suite",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "assemble-core": "^0.26.0",
-    "assemble-fs": "^0.7.0",
+    "assemble-fs": "^0.8.0",
     "async-each": "^1.0.1",
     "base-test-runner": "^0.2.0",
     "buffer-equal": "^1.0.0",
@@ -42,16 +42,12 @@
     "parser-front-matter": "^1.6.2",
     "resolve-glob": "^0.1.8",
     "rimraf": "^2.5.4",
-    "sinon": "^1.17.6",
+    "sinon": "^1.17.7",
     "swig": "^1.4.2",
     "templates": "^0.25.3",
     "through2": "^2.0.3",
     "vinyl": "^2.0.1",
-    "yargs-parser": "^4.2.0"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-format-md": "^0.1.11"
+    "yargs-parser": "^4.2.1"
   },
   "keywords": [
     "api",
@@ -115,5 +111,9 @@
     "lint": {
       "reflinks": true
     }
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-format-md": "^0.1.11"
   }
 }
