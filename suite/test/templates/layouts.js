@@ -197,7 +197,7 @@ module.exports = function(App, options, runner) {
       });
     });
 
-    it('should track layout stack history on `view.options.layouts`:', function(cb) {
+    it('should track layout stack history on `view.options.layoutStack`:', function(cb) {
       app.layout('a', {path: 'a.tmpl', content: 'a {% body %} a', layout: 'b'});
       app.layout('b', {path: 'b.tmpl', content: 'b {% body %} b', layout: 'c'});
       app.layout('c', {path: 'c.tmpl', content: 'c {% body %} c', layout: 'base'});
@@ -208,8 +208,8 @@ module.exports = function(App, options, runner) {
 
       app.render(page, function(err, view) {
         if (err) return cb(err);
-        assert(view.options.layouts);
-        assert.equal(Object.keys(view.options.layouts).length, 4);
+        assert(view.options.layoutStack);
+        assert.equal(Object.keys(view.options.layoutStack).length, 4);
         cb();
       });
     });
