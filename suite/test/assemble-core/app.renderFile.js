@@ -22,7 +22,7 @@ module.exports = function(App, options, runner) {
       });
 
       app.helper('title', function() {
-        var view = this.context.view;
+        var view = this.view;
         var key = view.key;
         var ctx = this.context[key];
         if (ctx && ctx.title) return ctx.title;
