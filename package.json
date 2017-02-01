@@ -1,7 +1,7 @@
 {
   "name": "base-test-suite",
   "description": "Test suite for base projects.",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "homepage": "https://github.com/node-base/base-test-suite",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "node-base/base-test-suite",
@@ -22,7 +22,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "assemble-core": "^0.26.0",
+    "assemble-core": "^0.27.1",
     "assemble-fs": "^0.8.0",
     "async-each": "^1.0.1",
     "base-test-runner": "^0.2.0",
@@ -44,16 +44,21 @@
     "rimraf": "^2.5.4",
     "sinon": "^1.17.7",
     "swig": "^1.4.2",
-    "templates": "^0.25.3",
+    "templates": "^1.2.0",
     "through2": "^2.0.3",
     "vinyl": "^2.0.1",
     "yargs-parser": "^4.2.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-format-md": "^0.1.11"
   },
   "keywords": [
     "api",
     "app",
     "application",
     "base",
+    "base-plugin",
     "baseplugin",
     "building-blocks",
     "create",
@@ -70,8 +75,8 @@
   ],
   "lintDeps": {
     "defaultIgnores": [
-      "**/node_modules/**",
-      "**/fixtures/**"
+      "**/fixtures/**",
+      "**/node_modules/**"
     ],
     "files": {
       "dependencies": [
@@ -111,9 +116,5 @@
     "lint": {
       "reflinks": true
     }
-  },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-format-md": "^0.1.11"
   }
 }
