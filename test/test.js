@@ -1,6 +1,6 @@
-/* deps:mocha */
 'use strict';
 
+require('mocha');
 var opts = {alias: {pattern: 'p'}};
 var argv = require('yargs-parser')(process.argv.slice(2), opts);
 var assemble = require('assemble-core');
