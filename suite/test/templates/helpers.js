@@ -1050,7 +1050,7 @@ module.exports = function(App, options, runner) {
 
       it('should handle engine errors', function(cb) {
         app.post('foo.hbs', {content: '{{one "two"}}'});
-        app.page('one', {content: '{{posts "foo.hbs"}}'})
+        app.page('one', {content: '{{post "foo.hbs"}}'})
           .render(function(err) {
             assert(err);
             assert.equal(typeof err, 'object');
